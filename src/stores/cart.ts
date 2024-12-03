@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Product } from 'app/types/product';
 import { defineStore } from 'pinia';
-import { computed,  ref, watch } from 'vue';
+import { computed,  onMounted,  ref, watch } from 'vue';
 import { LocalStorage, Mutation } from 'quasar';
 
 type CartProduct = { no_of_item: number; product: Product };
@@ -15,19 +15,16 @@ export const useCartStore = defineStore('cart', () => {
   const cart_product = ref<CartProduct[]>([]);
 
   const add = async (id: number, item_count = 1) => {
-    if (!cart.value.has(id)) {
-      if (await get_latest_cart_product(id, item_count)) {
-        return cart.value.add(id);
-      }
-    }
+      // 
+    // }
 
-    for (const cp of cart_product.value) {
-      if (cp.product.id == id) {
-        console.log(cp.no_of_item);
-        cp.no_of_item += item_count;
-        console.log(cp.no_of_item);
-      }
-    }
+    // for (const cp of cart_product.value) {
+    //   if (cp.product.id == id) {
+    //     console.log(cp.no_of_item);
+    //     cp.no_of_item += item_count;
+    //     console.log(cp.no_of_item);
+    //   }
+    // }
   };
 
   const remove = (id: number) => {
@@ -62,25 +59,25 @@ export const useCartStore = defineStore('cart', () => {
 
   get_cart_product();
 
-  async function get_latest_cart_product(id: number, item_count = 1) {
-    try {
-      const req = await fetch(
-        `${api}/api/cart_product?cart_ids=${id}`
-      );
-      const res = await req.json();
-      if (res.status === 'success') {
-        cart_product.value.push(
-          Object.create({ product: res.data[0], no_of_item: item_count })
-        );
-        return true;
-      }
+  // async function get_latest_cart_product(id: number, item_count = 1) {
+  //   try {
+  //     const req = await fetch(
+  //       `${api}/api/cart_product?cart_ids=${id}`
+  //     );
+  //     const res = await req.json();
+  //     if (res.status === 'success') {
+  //       cart_product.value.push(
+  //         Object.create({ product: res.data[0], no_of_item: item_count })
+  //       );
+  //       return true;
+  //     }
 
-      console.error('Error Geting single cart product', res.code);
-      return false;
-    } catch (error) {
-      return false;
-    }
-  }
+  //     console.error('Error Geting single cart product', res.code);
+  //     return false;
+  //   } catch (error) {
+  //     return false;
+  //   }
+  // }
 
   const total_price = computed(() => {
     const price = cart_product.value.reduce(
@@ -102,9 +99,11 @@ export const useCartStore = defineStore('cart', () => {
     remove
   };
 });
-useCartStore().$subscribe((Mutation, cart) => {
-  LocalStorage.setItem('cartIds', [...cart.cart]);
-});
+onMounted(() => {
+  useCartStore().$subscribe((Mutation, cart) => {
+    LocalStorage.setItem('cartIds', [...cart.cart]);
+  });
+})
 // watch(
 //   () => useCartStore().length,
 //   (x) => {
