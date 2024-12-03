@@ -1,44 +1,5 @@
 <script lang="ts" setup>
-const categories = [
-  {
-    title: 'Clothings',
-    img: 'clothing.jpg',
-    group: [
-      { title: 'men clothing', subtitle: [], href: '/shop/clothing/men' },
-      { title: 'women clothing', subtitle: [], href: '/shop/clothing/women' },
-      { title: 'kids clothing', subtitle: [], href: '/shop/clothing/kids' },
-      { title: 'seasonal', subtitle: [], href: '/shop/clothing/season' },
-    ],
-  },
-  {
-    title: 'Footwear',
-    img: 'footware.jpg',
-    group: [
-      { title: 'men footwear', subtitle: [], href: '/shop/footwear/men' },
-      { title: 'women footwear', subtitle: [], href: '/shop/footwear/women' },
-      { title: 'kids footwear', subtitle: [], href: '/shop/footwear/kids' },
-    ],
-  },
-
-  {
-    title: 'Accessories',
-    img: 'accessories.jpg',
-    group: [
-      { title: 'men accessories', subtitle: [], href: '/shop/accessories/men' },
-      {
-        title: 'women accessories',
-        subtitle: [],
-        href: '/shop/accessories/women',
-      },
-      {
-        title: 'kids accessories',
-        subtitle: [],
-        href: '/shop/accessories/kids',
-      },
-      { title: 'unisex', subtitle: [], href: '/shop/accessories/unisex' },
-    ],
-  },
-];
+import {ProductCategories} from 'app/composables/ProductCategory'
 </script>
 
 <template>
@@ -63,7 +24,7 @@ const categories = [
       :autoplay="true"
       pagination
     >
-      <swiper-slide class="" v-for="cat in categories" :key="cat.title">
+      <swiper-slide class="" v-for="cat in ProductCategories" :key="cat.title">
         <div class="category_container">
           <div class="category_content">
             <q-img :src="`/img/categories/${cat.img}`" class="img" alt="" />

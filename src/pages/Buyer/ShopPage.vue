@@ -10,7 +10,6 @@ import { storeToRefs } from 'pinia';
 
 // const api = inject('api');
 const { Shop} = storeToRefs(useProduct())
-
 let current = ref(1);
 let sort_by = ref<
   'price_up' | 'price_down' | 'rating' | 'purchase' | 'location' | ''
@@ -35,7 +34,7 @@ defineOptions({
   async preFetch({store}){
     const api = process.env.DEV ? 'http://localhost:3000/api' : '';
     const Store = useProduct(store)
-    const res = await fetch(`${api}/store/product/featured`).then(res => res.json())
+    const res = await fetch(`${api}/store/product/featured?limit=72`).then(res => res.json())
     Store.Shop = res.data || []
   }
 })
@@ -75,17 +74,18 @@ watch(sort_by, (sort) => {
       </div>
       <div class="lg:tw-col-span-3 tw-order-1 lg:tw-order-2">
         <q-toolbar class="tw-bg-slate-50 tw-mb-5" style="border-style: inset">
-          <q-btn icon="list" unelevated />
-          <q-btn icon="grid_view" unelevated />
-          <q-toolbar-title class="text-subtitle1 tw-hidden lg:tw-inline-block"
-            >we found {{ Shop?.length }} result</q-toolbar-title
+          <!-- <q-btn icon="list" unelevated />
+          <q-btn icon="grid_view" unelevated /> -->
+          <div class="text-subtitle1 "
+            >Found {{ Shop?.length }} Results</div
           >
           <q-space />
           <q-btn-dropdown
             unelevated
+            dense
             :label="`sort by: ${sort_by}`"
             dropdown-icon="keyboard_arrow_down"
-            class="tw-border tw-bg-white tw-px-10 tw-py-2"
+            class="tw-border tw-bg-white sm:tw-px-10 tw-px-2 tw-py-2"
           >
             <q-list>
               <q-item
@@ -122,9 +122,8 @@ watch(sort_by, (sort) => {
           </q-btn-dropdown>
         </q-toolbar>
 
-        <div>
+        <div v-if="Shop && Shop.length > 0">
           <div
-            v-if="Shop"
             class="tw-grid lg:tw-grid-cols-5 md:tw-grid-cols-4 sm:tw-grid-cols-3 tw-grid-cols-2 tw-gap-x-4 tw-gap-y-6"
             v-auto-animate
           >
@@ -146,6 +145,9 @@ watch(sort_by, (sort) => {
               size="md"
             />
           </div>
+        </div>
+        <div>
+
         </div>
       </div>
     </div>
