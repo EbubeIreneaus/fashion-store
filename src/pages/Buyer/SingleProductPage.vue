@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useRoute } from 'vue-router';
 import BreadCrumbs from 'src/components/Buyer/BreadCrumbs.vue';
-import { inject, ref } from 'vue';
+import { inject, onMounted, ref } from 'vue';
 import { Product } from 'app/types/product';
 import { useProduct } from 'src/stores/product';
 import ProductImageSlide from 'src/components/Buyer/Product/ProductImageSlide.vue';
@@ -14,16 +14,18 @@ const api = inject('api');
 
 const product = ref<Product>({} as Product);
 
-(async function get_product_details() {
-  const [p, ps] = await Promise.all([
-    (await fetch(`${api}/api/single_product?id=${productId}`)).json(),
-    (await fetch(`${api}/api/related_product?id=${productId}`)).json(),
-  ]);
-  product.value = p.status == 'success' ? p.data : [];
-  useProduct().products = ps.status == 'success' ? ps.data : [];
-})();
-
 const carting = ref(1);
+
+onMounted(() => {
+  (async function get_product_details() {
+    const [p, ps] = await Promise.all([
+      (await fetch(`${api}/api/single_product?id=${productId}`)).json(),
+      (await fetch(`${api}/api/related_product?id=${productId}`)).json(),
+    ]);
+    product.value = p.status == 'success' ? p.data : [];
+    useProduct().products = ps.status == 'success' ? ps.data : [];
+  })();
+});
 </script>
 
 <template>
