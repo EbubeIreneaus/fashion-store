@@ -140,7 +140,7 @@ module.exports = configure(function (/* ctx */) {
 
       pwa: true,
 
-      // manualStoreHydration: true,
+      manualStoreHydration: false,
       // manualPostHydrationTrigger: true,
 
       prodPort: 3000, // The default port that the production server should use

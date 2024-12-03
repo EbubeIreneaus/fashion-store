@@ -10,7 +10,7 @@ import { storeToRefs } from 'pinia';
 
 
 // const api = inject('api');
-const { Shop} = storeToRefs(useProduct())
+
 let current = ref(1);
 let sort_by = ref<
   'price_up' | 'price_down' | 'rating' | 'purchase' | 'location' | ''
@@ -39,6 +39,7 @@ defineOptions({
     Store.Shop = res.data || []
   }
 })
+const { Shop} = storeToRefs(useProduct())
 const sort_product = (sort_by: string) => {
   // try {
   //   if (sort_by == 'rating') {

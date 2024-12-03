@@ -16,8 +16,6 @@ const top_slide_ref: any = ref(null);
 const review_slide_ref: any = ref(null);
 // const api = inject('api');
 
-const { Featured, Latest, Rated } = storeToRefs(useProduct());
-
 // get product from server
 defineOptions({
   async preFetch({ store }) {
@@ -47,6 +45,8 @@ defineOptions({
     }
   },
 });
+
+const { Featured, Latest, Rated } = storeToRefs(useProduct());
 
 function latest_slide_next() {
   latest_slide_ref.value.swiper.slideNext();
