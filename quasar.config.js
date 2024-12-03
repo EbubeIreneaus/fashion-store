@@ -26,7 +26,6 @@ module.exports = configure(function (/* ctx */) {
       'register-naira',
       {path: 'rating', server: true}
     ],
-
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
     css: [
       'app.scss',

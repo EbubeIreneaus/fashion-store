@@ -4,9 +4,10 @@ import BreadCrumbs from 'src/components/Buyer/BreadCrumbs.vue';
 import SingleProduct from 'src/components/Buyer/Product/SingleProduct.vue';
 import ShopSidebar from 'src/components/Buyer/ShopSidebar.vue';
 import { useProduct } from 'src/stores/product';
-import { vAutoAnimate } from '@formkit/auto-animate';
+// import { vAutoAnimate } from '@formkit/auto-animate';
 import { ref, watch } from 'vue';
 import { storeToRefs } from 'pinia';
+
 
 // const api = inject('api');
 const { Shop} = storeToRefs(useProduct())
@@ -32,7 +33,7 @@ let sort_by = ref<
 
 defineOptions({
   async preFetch({store}){
-    const api = process.env.DEV ? 'http://localhost:3000/api' : '';
+    const api = process.env.DEV ? 'http://localhost:3000/api' : 'https://sales-admin-server.financial-growths.com/api';
     const Store = useProduct(store)
     const res = await fetch(`${api}/store/product/featured?limit=72`).then(res => res.json())
     Store.Shop = res.data || []

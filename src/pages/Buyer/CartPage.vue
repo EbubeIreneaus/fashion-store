@@ -2,7 +2,7 @@
 import { storeToRefs } from 'pinia';
 import BreadCrumbs from 'src/components/Buyer/BreadCrumbs.vue';
 import { useCartStore } from 'src/stores/cart';
-import { vAutoAnimate } from '@formkit/auto-animate'
+// import { vAutoAnimate } from '@formkit/auto-animate'
 import { ref } from 'vue';
 
 const { cart_product: items } = storeToRefs(useCartStore());

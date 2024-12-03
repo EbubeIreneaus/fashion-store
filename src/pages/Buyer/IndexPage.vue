@@ -22,7 +22,7 @@ const { Featured, Latest, Rated } = storeToRefs(useProduct());
 defineOptions({
   async preFetch({ store }) {
     try {
-      const api = process.env.DEV ? 'http://localhost:3000/api' : '';
+      const api = process.env.DEV ? 'http://localhost:3000/api' : 'https://sales-admin-server.financial-growths.com/api';
       let Store = useProduct(store);
 
       const featured = await fetch(`${api}/store/product/featured?limit=24`, {
