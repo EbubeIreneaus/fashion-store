@@ -79,37 +79,6 @@ module.exports = configure(function (/* ctx */) {
         ],
       ],
 
-      afterBuild({ quasarConf }) {
-        // Create the Netlify function
-        const distDir = path.resolve(__dirname, quasarConf.build.distDir);
-        const netifyFuncDir = path.join(distDir, '/netlify/functions');
-        fs.mkdirSync(netifyFuncDir, {
-          recursive: true,
-        });
-        const code =
-          "const ssr = require('../../index.js')\nexports.handler = ssr.default.handler";
-        fs.writeFileSync(path.join(netifyFuncDir, 'index.js'), code, {
-          encoding: 'utf-8',
-        });
-
-        // Create the static resource directory for Netlify
-        const clientDir = path.join(distDir, 'client');
-        let str =
-          '# Redirects from what the browser requests to what we serve\n';
-        const files = fs.readdirSync(clientDir);
-        for (const file of files) {
-          // I'm using the lazy method here. You should use the fs. stat method to determine if the file is a directory
-          if (file.includes('.')) {
-            str += `/${file}                        /${file}\n`;
-          } else {
-            str += `/${file}/*                        /${file}/:splat\n`;
-          }
-        }
-
-        fs.writeFileSync(path.join(clientDir, '_redirects'), str, {
-          encoding: 'utf-8',
-        });
-      },
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer

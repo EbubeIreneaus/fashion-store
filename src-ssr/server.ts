@@ -15,6 +15,7 @@ import serverless from 'serverless-http'
 import {
   ssrClose,
   ssrCreate,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   ssrListen,
   ssrRenderPreloadTag,
   ssrServeStaticContent,
