@@ -4,6 +4,8 @@ import { useProduct } from 'src/stores/product';
 import { ProductCategories } from 'app/composables/ProductCategory';
 const api = inject('api');
 
+const emit = defineEmits(['startFiltering', 'endFiltering']);
+
 const filter = reactive<{
   category: string[] | null[];
   priceRange: { min: number; max: number };
@@ -31,14 +33,19 @@ const Filter = async () => {
       searchQuery += '&sizes=' + sizes;
     }
 
+    emit('startFiltering');
     const req = await fetch(`${api}/store/product/shopFilters?${searchQuery}`);
 
     const res = await req.json();
+
     if (res.success) {
-      return (useProduct().Shop = res.data);
+      useProduct().Shop = res.data
+    } else {
+      console.error('Failed Fetching product from api', res.msg);
     }
-    console.error('Failed Fetching product from api', res.msg);
+    emit('endFiltering');
   } catch (error) {
+    emit('endFiltering');
     console.error('ErrorFetching product from api', error);
   }
 };

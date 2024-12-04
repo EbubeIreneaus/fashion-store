@@ -7,6 +7,7 @@ import { useProduct } from 'src/stores/product';
 // import { vAutoAnimate } from '@formkit/auto-animate';
 import { ref, watch } from 'vue';
 import { storeToRefs } from 'pinia';
+import PreLoader from 'src/components/Buyer/Product/PreLoader.vue';
 
 // const api = inject('api');
 
@@ -45,30 +46,23 @@ defineOptions({
 
 const { Shop } = storeToRefs(useProduct());
 
-const isLoading = ref(true);
+const isLoading = ref(false);
 
-const sort_product = (sort_by: string) => {
-  // try {
-  //   if (sort_by == 'rating') {
-  //     return useProduct().shop?.sort((a, b) => b.rating.rate - a.rating.rate);
-  //   }
-
-  //   if (sort_by == 'price_up') {
-  //     return useProduct().shop?.sort((a, b) => b.market_price - a.market_price);
-  //   }
-
-  //   if (sort_by == 'price_down') {
-  //     return useProduct().shop?.sort((a, b) => a.market_price - b.market_price);
-  //   }
-  // } catch (error) {
-  //   console.error('Errorsorting product', error);
-  // }
-  console.log('hello world');
-};
-
-watch(sort_by, (sort) => {
-  sort_product(sort);
+watch(sort_by, () => {
+  // sort_product(sort);
 });
+
+function filteringInProgress() {
+  document.querySelector('#product-list')?.scrollIntoView({
+    behavior: 'smooth',
+    block: 'start'
+  })
+  isLoading.value = true;
+}
+
+function endFiltering() {
+  isLoading.value = false
+}
 </script>
 
 <template>
@@ -78,13 +72,17 @@ watch(sort_by, (sort) => {
       class="q-mx-auto tw-py-7 sm:tw-px-7 tw-px-4 tw-grid lg:tw-grid-cols-4 tw-gap-y-10 tw-gap-x-4"
     >
       <div class="lg:tw-col-span-1 tw-order-2 lg:tw-order-1">
-        <ShopSidebar />
+        <ShopSidebar @start-filtering="filteringInProgress" @end-filtering="endFiltering" />
       </div>
-      <div class="lg:tw-col-span-3 tw-order-1 lg:tw-order-2">
+
+      <div class="lg:tw-col-span-3 tw-order-1 lg:tw-order-2" id="product-list">
         <q-toolbar class="tw-bg-slate-50 tw-mb-5" style="border-style: inset">
-          <!-- <q-btn icon="list" unelevated />
-          <q-btn icon="grid_view" unelevated /> -->
-          <div class="text-subtitle1">Found {{ Shop?.length }} Results</div>
+          <div class="text-subtitle1" v-if="isLoading">
+            Retrieving Product...
+          </div>
+          <div class="text-subtitle1" v-else>
+            Found {{ Shop?.length }} Results
+          </div>
           <q-space />
           <q-btn-dropdown
             unelevated
@@ -118,18 +116,19 @@ watch(sort_by, (sort) => {
               >
                 <q-item-section>Rating</q-item-section>
               </q-item>
-              <!-- <q-item clickable v-ripple v-close-popup @click="sort_by = 'location'">
-                <q-item-section>Location</q-item-section>
-              </q-item> -->
-              <!-- <q-item clickable v-ripple v-close-popup @click="sort_by = 'purchase'">
-                <q-item-section>Purchase</q-item-section>
-              </q-item> -->
             </q-list>
           </q-btn-dropdown>
         </q-toolbar>
 
         <div v-if="isLoading">
-          
+          <div
+            class="tw-grid lg:tw-grid-cols-5 md:tw-grid-cols-4 sm:tw-grid-cols-3 tw-grid-cols-2 tw-gap-x-4 tw-gap-y-6"
+            v-auto-animate
+          >
+            <div v-for="(_, index) in 24" :key="index" class="">
+              <PreLoader />
+            </div>
+          </div>
         </div>
 
         <div v-else>

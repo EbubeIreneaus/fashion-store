@@ -9,8 +9,9 @@ defineProps<{ product: Product }>();
 
 const api = inject('api');
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const cart = computed(() => useCartStore());
-console.log(cart);
+
 
 </script>
 
