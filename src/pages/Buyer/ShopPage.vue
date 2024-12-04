@@ -48,20 +48,36 @@ const { Shop } = storeToRefs(useProduct());
 
 const isLoading = ref(false);
 
+function sort_product() {
+  isLoading.value = true;
+  const timeOut = setTimeout(() => {
+    if (sort_by.value === 'rating') {
+      Shop.value?.sort((a, b) => b.rating.rate - a.rating.rate);
+    } else if (sort_by.value === 'price_down') {
+      Shop.value?.sort((a, b) => b.market_price - a.market_price);
+    } else if (sort_by.value === 'price_up') {
+      Shop.value?.sort((a, b) => a.market_price - b.market_price);
+    } else {
+    }
+    isLoading.value = false;
+    clearTimeout(timeOut);
+  }, 3000);
+}
+
 watch(sort_by, () => {
-  // sort_product(sort);
+  sort_product();
 });
 
 function filteringInProgress() {
   document.querySelector('#product-list')?.scrollIntoView({
     behavior: 'smooth',
-    block: 'start'
-  })
+    block: 'start',
+  });
   isLoading.value = true;
 }
 
 function endFiltering() {
-  isLoading.value = false
+  isLoading.value = false;
 }
 </script>
 
@@ -72,7 +88,10 @@ function endFiltering() {
       class="q-mx-auto tw-py-7 sm:tw-px-7 tw-px-4 tw-grid lg:tw-grid-cols-4 tw-gap-y-10 tw-gap-x-4"
     >
       <div class="lg:tw-col-span-1 tw-order-2 lg:tw-order-1">
-        <ShopSidebar @start-filtering="filteringInProgress" @end-filtering="endFiltering" />
+        <ShopSidebar
+          @start-filtering="filteringInProgress"
+          @end-filtering="endFiltering"
+        />
       </div>
 
       <div class="lg:tw-col-span-3 tw-order-1 lg:tw-order-2" id="product-list">
