@@ -44,7 +44,7 @@ const cart = computed(() => useCartStore());
             {{ product.long_title ?? product.name }}
           </h3>
           <div
-            class="tw-font-mono tw-font-bold text-accent"
+            class=" tw-font-bold text-accent"
             v-naira-summerize="product.market_price"
           ></div>
         </div>
