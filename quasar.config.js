@@ -78,7 +78,6 @@ module.exports = configure(function (/* ctx */) {
           { server: false },
         ],
       ],
-
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
@@ -106,7 +105,7 @@ module.exports = configure(function (/* ctx */) {
       // directives: [],
 
       // Quasar plugins
-      plugins: ['LoadingBar'],
+      plugins: ['LoadingBar', 'Notify'],
     },
 
     // animations: 'all', // --- includes all animations

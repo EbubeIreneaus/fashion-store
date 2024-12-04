@@ -1,63 +1,32 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Product } from 'app/types/product';
+import type { Product } from 'app/types/product';
 import { defineStore } from 'pinia';
-import { computed,  onMounted,  ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { LocalStorage, Mutation } from 'quasar';
 
-type CartProduct = { no_of_item: number; product: Product };
-const api = process.env.DEV ? 'http://127.0.0.1:8000' : 'https://api-therawmarket.vercel.app'
+type CartProduct = { product: Product; quantity: number };
+
 export const useCartStore = defineStore('cart', () => {
+  const Cart = ref<CartProduct[]>([] as CartProduct[]);
 
-  const cart = ref(new Set(LocalStorage.getItem<number[]>('cartIds') || []));
-  const length = computed(() => cart.value.size);
-  const cart_product = ref<CartProduct[]>([]);
+  const length = computed(() => Cart.value.length);
 
-  const add = async (id: number, item_count = 1) => {
-      // 
-    // }
-
-    // for (const cp of cart_product.value) {
-    //   if (cp.product.id == id) {
-    //     console.log(cp.no_of_item);
-    //     cp.no_of_item += item_count;
-    //     console.log(cp.no_of_item);
-    //   }
-    // }
+  const add = async (product: Product, quantity = 1) => {
+    const { id } = product;
+    for (const item of Cart.value) {
+      if (item.product.id == id) {
+        return (item.quantity += quantity);
+      }
+    }
+    const newCartProduct: CartProduct = { 'product': { ...product }, quantity };
+    return Cart.value.push(newCartProduct);
   };
 
   const remove = (id: number) => {
-    cart.value.delete(id);
-    for (let index = 0; index < cart_product.value.length; index++) {
-      if (cart_product.value[index].product.id == id) {
-        return cart_product.value.splice(index, 1);
-      }
-    }
+    //
   };
-
-  async function get_cart_product() {
-    try {
-      const params = [...cart.value];
-      const req = await fetch(
-        `${api}/api/cart_product?cart_ids=${params}`
-      );
-      const res = await req.json();
-      if (res.status === 'success') {
-        res.data.map((product: Product) => {
-          return cart_product.value.push(
-            Object.create({ product: product, no_of_item: 1 })
-          );
-        });
-        return true;
-      }
-
-      console.error('Error Geting cart product', res.code);
-      return false;
-    } catch (error) {}
-  }
-
-  get_cart_product();
 
   // async function get_latest_cart_product(id: number, item_count = 1) {
   //   try {
@@ -80,9 +49,8 @@ export const useCartStore = defineStore('cart', () => {
   // }
 
   const total_price = computed(() => {
-    const price = cart_product.value.reduce(
-      (x: number, y: CartProduct) =>
-        x + y.no_of_item * y.product.market_price,
+    const price = Cart.value.reduce(
+      (x: number, y: CartProduct) => x + y.quantity * y.product.market_price,
       0
     );
 
@@ -91,12 +59,11 @@ export const useCartStore = defineStore('cart', () => {
   });
 
   return {
-    cart,
+    Cart,
     length,
     add,
     total_price,
-    cart_product,
-    remove
+    remove,
   };
 });
 // onMounted(() => {

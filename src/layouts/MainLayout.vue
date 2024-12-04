@@ -80,7 +80,7 @@
               to="/cart"
             >
               <q-badge
-                :label="cart.length > 9 ? '9+' : cart.length"
+                :label="CartLength > 9 ? '9+' : CartLength"
                 floating
                 class="btn"
                 rounded
@@ -90,7 +90,7 @@
             &nbsp;&nbsp;
             <div>
               items:
-              <span v-naira="Number(cart.total_price)" class=" text-weight-bold"></span>
+              <span v-naira="Number(total_price)" class=" text-weight-bold"></span>
             </div>
           </div>
 
@@ -119,13 +119,13 @@
           class="!tw-text-black focus:!tw-bg-transparent"
           to="/cart"
         >
-          <q-badge :label="cart.length" floating class="btn" rounded></q-badge>
+          <q-badge :label="CartLength" floating class="btn" rounded></q-badge>
         </q-btn>
 
         &nbsp;&nbsp;
         <div>
           items:
-          <span v-naira="cart.total_price" class="text-weight-bold"></span>
+          <span v-naira="total_price" class="text-weight-bold"></span>
         </div>
       </div>
 
@@ -147,17 +147,19 @@
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from 'pinia';
 import HeroCompnent from 'src/components/Buyer/HeroCompnent.vue';
 import SidebarComp from 'src/components/Buyer/SidebarComp.vue';
 import FooterComp from 'src/components/FooterComp.vue';
 import { useCartStore } from 'src/stores/cart';
-import { computed, ref} from 'vue';
+import { ref} from 'vue';
 
 defineOptions({
   name: 'MainLayout',
 });
 
-const cart = computed(() => useCartStore());
+const {total_price, length: CartLength} = storeToRefs(useCartStore());
+
 const MenuLinks = [
   { title: 'HOME', href: '/', icon: '', sublink: [] },
   { title: 'SHOP', href: '/shop', icon: '', sublink: [] },

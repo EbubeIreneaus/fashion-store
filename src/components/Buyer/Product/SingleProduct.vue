@@ -4,15 +4,29 @@
 import { Product } from 'app/types/product';
 import { useCartStore } from 'src/stores/cart';
 import { computed, inject } from 'vue';
+import { useQuasar } from 'quasar';
 
 defineProps<{ product: Product }>();
 
 const api = inject('api');
+const $q = useQuasar()
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const cart = computed(() => useCartStore());
 
+const {add: cartAdd} = useCartStore()
 
+function addToCart(product:Product) {
+  cartAdd(product)
+  $q.notify({
+    color: 'accent',
+    icon: 'check_circle',
+    position: 'top-right',
+    textColor: 'white',
+    message: 'Product added to cart.',
+    timeout: 1000
+  })
+}
 </script>
 
 <template>
@@ -60,7 +74,7 @@ const cart = computed(() => useCartStore());
             <span>{{ product.rating.rate.toFixed(1) }}</span>
           </div>
           <div>
-            <q-btn flat icon="shopping_cart" color="accent" />
+            <q-btn flat icon="shopping_cart" color="accent" @click="addToCart(product)"/>
           </div>
         </div>
       </div>
