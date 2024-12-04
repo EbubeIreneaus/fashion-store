@@ -178,3 +178,10 @@
     });
 
 })(jQuery);
+
+window.addEventListener('DOMContentLoaded', () => {
+    const preloader = document.querySelector('.preloader')
+    const body = document.querySelector('body')
+    preloader.classList.add('d-none')
+    body.classList.add('overflow-scroll')
+})

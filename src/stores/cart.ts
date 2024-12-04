@@ -99,11 +99,11 @@ export const useCartStore = defineStore('cart', () => {
     remove
   };
 });
-onMounted(() => {
-  useCartStore().$subscribe((Mutation, cart) => {
-    LocalStorage.setItem('cartIds', [...cart.cart]);
-  });
-})
+// onMounted(() => {
+//   useCartStore().$subscribe((Mutation, cart) => {
+//     LocalStorage.setItem('cartIds', [...cart.cart]);
+//   });
+// })
 // watch(
 //   () => useCartStore().length,
 //   (x) => {

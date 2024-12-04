@@ -29,7 +29,11 @@ body {
 	height: 100%;
 	font-family: "Cairo", sans-serif;
 	-webkit-font-smoothing: antialiased;
-	font-smoothing: antialiased;
+	overflow: hidden;
+	/* font-smoothing: antialiased; */
+}
+.overflow-scroll{
+	overflow: auto !important;
 }
 
 h1,
@@ -101,10 +105,77 @@ ol {
 	margin: 0;
 }
 
+.preloader {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 9999999999;
+	background-color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.preloader .image{
+	transform: scale(0.85);
+}
+.preloader .preloader-content{
+	padding: 0 20px;
+}
+
+.preloader .loading-container {
+	width: 100%;
+	max-width: 520px;
+	text-align: center;
+	color: green;
+	position: relative;
+	margin: 0 32px;
+}
+
+.preloader .loading-container::before{
+	content: '';
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    background-color: greenyellow;
+    bottom: 0;
+    left: 0;
+    border-radius: 10px;
+    animation: movingLine 2.4s infinite ease-in-out;
+}
+
+@keyframes movingLine {
+	0% {
+	  opacity: 0;
+	  width: 0;
+	}
+  
+	33.3%, 66% {
+	  opacity: 0.8;
+	  width: 100%;
+	}
+	
+	85% {
+	  width: 0;
+	  left: initial;
+	  right: 0;
+	  opacity: 1;
+	}
+  
+	100% {
+	 opacity: 0;
+	 width: 0;
+	}
+  }
+  
 /*---------------------
   Helper CSS
 -----------------------*/
-
+.d-none{
+	display: none !important;
+}
 .section-title {
 	margin-bottom: 50px;
 	text-align: center;

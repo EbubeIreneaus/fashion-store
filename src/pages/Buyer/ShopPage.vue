@@ -8,7 +8,6 @@ import { useProduct } from 'src/stores/product';
 import { ref, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 
-
 // const api = inject('api');
 
 let current = ref(1);
@@ -32,14 +31,22 @@ let sort_by = ref<
 // };
 
 defineOptions({
-  async preFetch({store}){
-    const api = process.env.DEV ? 'http://localhost:3000/api' : 'https://sales-admin-server.financial-growths.com/api';
-    const Store = useProduct(store)
-    const res = await fetch(`${api}/store/product/featured?limit=72`).then(res => res.json())
-    Store.Shop = res.data || []
-  }
-})
-const { Shop} = storeToRefs(useProduct())
+  async preFetch({ store }) {
+    const api = process.env.DEV
+      ? 'http://localhost:3000/api'
+      : 'https://sales-admin-server.financial-growths.com/api';
+    const Store = useProduct(store);
+    const res = await fetch(`${api}/store/product/featured?limit=72`).then(
+      (res) => res.json()
+    );
+    Store.Shop = res.data || [];
+  },
+});
+
+const { Shop } = storeToRefs(useProduct());
+
+const isLoading = ref(true);
+
 const sort_product = (sort_by: string) => {
   // try {
   //   if (sort_by == 'rating') {
@@ -57,7 +64,6 @@ const sort_product = (sort_by: string) => {
   //   console.error('Errorsorting product', error);
   // }
   console.log('hello world');
-  
 };
 
 watch(sort_by, (sort) => {
@@ -69,7 +75,7 @@ watch(sort_by, (sort) => {
   <q-page>
     <BreadCrumbs title="shop" :navs="['home', 'shop']" />
     <div
-      class="q-mx-auto tw-p-7 tw-grid lg:tw-grid-cols-4 tw-gap-y-10 tw-gap-x-4"
+      class="q-mx-auto tw-py-7 sm:tw-px-7 tw-px-4 tw-grid lg:tw-grid-cols-4 tw-gap-y-10 tw-gap-x-4"
     >
       <div class="lg:tw-col-span-1 tw-order-2 lg:tw-order-1">
         <ShopSidebar />
@@ -78,9 +84,7 @@ watch(sort_by, (sort) => {
         <q-toolbar class="tw-bg-slate-50 tw-mb-5" style="border-style: inset">
           <!-- <q-btn icon="list" unelevated />
           <q-btn icon="grid_view" unelevated /> -->
-          <div class="text-subtitle1 "
-            >Found {{ Shop?.length }} Results</div
-          >
+          <div class="text-subtitle1">Found {{ Shop?.length }} Results</div>
           <q-space />
           <q-btn-dropdown
             unelevated
@@ -124,33 +128,36 @@ watch(sort_by, (sort) => {
           </q-btn-dropdown>
         </q-toolbar>
 
-        <div v-if="Shop && Shop.length > 0">
-          <div
-            class="tw-grid lg:tw-grid-cols-5 md:tw-grid-cols-4 sm:tw-grid-cols-3 tw-grid-cols-2 tw-gap-x-4 tw-gap-y-6"
-            v-auto-animate
-          >
-            <div v-for="product in Shop" :key="product.id" class="" >
-              <SingleProduct
-                :product="product"
+        <div v-if="isLoading">
+          
+        </div>
+
+        <div v-else>
+          <div v-if="Shop && Shop.length > 0">
+            <div
+              class="tw-grid lg:tw-grid-cols-5 md:tw-grid-cols-4 sm:tw-grid-cols-3 tw-grid-cols-2 tw-gap-x-4 tw-gap-y-6"
+              v-auto-animate
+            >
+              <div v-for="product in Shop" :key="product.id" class="">
+                <SingleProduct :product="product" />
+              </div>
+            </div>
+            <div class="tw-flex tw-justify-center tw-mt-12 mb-4">
+              <q-pagination
+                v-model="current"
+                :max="10"
+                :max-pages="5"
+                color="grey-10"
+                active-color="green-4"
+                class="tw-font-semibold"
+                direction-links
+                size="md"
               />
             </div>
           </div>
-          <div class="tw-flex tw-justify-center tw-mt-12 mb-4">
-            <q-pagination
-              v-model="current"
-              :max="10"
-              :max-pages="5"
-              color="grey-10"
-              active-color="green-4"
-              class="tw-font-semibold"
-              direction-links
-              size="md"
-            />
-          </div>
         </div>
-        <div>
 
-        </div>
+        <div></div>
       </div>
     </div>
   </q-page>

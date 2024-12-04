@@ -10,7 +10,7 @@ const cart = computed(() => useCartStore());
 <template>
   <div class="tw-my-12 tw-mx-5">
     <div class="tw-w-28">
-      <q-img src="img/logo.png" />
+      <q-img src="img/logo/1-tr.png" alt="Ireneaus Fashion Store Logo"/>
     </div>
 
     <div class="tw-my-7">
@@ -60,7 +60,7 @@ const cart = computed(() => useCartStore());
     </div>
 
     <div class="tw-flex tw-gap-5 tw-px-3 tw-mb-5">
-      <a href="#"><q-icon name="fa-brands fa-facebook" /></a>
+      <a href="#" rel="nofollow"><q-icon name="fa-brands fa-facebook" /></a>
       <a href="#"><q-icon name="fa-brands fa-twitter" /></a>
       <a href="#"><q-icon name="fa-brands fa-instagram" /></a>
       <a href="#"><q-icon name="fa-brands fa-youtube" /></a>
@@ -68,7 +68,7 @@ const cart = computed(() => useCartStore());
 
     <div class="tw-px-3 tw-font-medium tw-text-gray-500/ tw-mb-4">
       <div class="tw-mb-3">
-        <q-icon name="mail" />&nbsp; care@therawmarket.com
+        <q-icon name="mail" />&nbsp; care@ireneausfs.com.ng
       </div>
       <div><q-icon name="phone" />&nbsp; +234 806 198 2520</div>
     </div>

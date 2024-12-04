@@ -7,7 +7,7 @@
           class="tw-flex tw-justify-between container tw-mx-auto tw-py-3 text-black"
         >
           <div class="tw-flex tw-justify-between tw-gap-5">
-            <div>care@themarket.com.g</div>
+            <div>care@ireneausfs.com.ng</div>
             <q-separator vertical />
             <div>Free Shipping for all Order of ₦10,000.00</div>
           </div>
@@ -43,7 +43,7 @@
         <div
           class="container tw-flex tw-justify-between tw-items-center tw-mx-auto lg:tw-py-4 tw-p-4"
         >
-          <div class="tw-w-24"><q-img src="/img/logo.png" /></div>
+          <div class="tw-w-24"><q-img src="/img/logo/1-tr.png" style="transform: scale(1.8);" alt="Ireneaus Fashion Store Logo" /></div>
 
           <ul class="*:tw-inline *:tw-px-4 tw-hidden lg:tw-block">
             <li
