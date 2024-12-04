@@ -1,8 +1,8 @@
 {
-  "name": "Raw-Market",
+  "name": "ireneaus-fashion-store",
   "version": "0.0.1",
-  "description": "Explore your uncooked world",
-  "productName": "Raw Market",
+  "description": "Explore your unique style and fashion here.",
+  "productName": "Ireneaus Fashion Store",
   "author": "Okigwe Ebube Ireneaus <alfredebube7@gmail.com>",
   "private": true,
   "scripts": {

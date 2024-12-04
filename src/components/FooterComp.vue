@@ -11,7 +11,7 @@
           href="#"
           class="tw-flex  tw-space-x-3 lg:tw-justify-start"
         >
-          <q-img src="/img/logo.png" class="tw-w-32" />
+          <q-img src="/img/logo/1-tr.png" class="tw-w-32" style="transform: scale(1.8);" alt="Ireneaus Fashion Store Logo" />
         </a>
         <div class="tw-my-5 text-body2 tw-text-balance">
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quod, rem
