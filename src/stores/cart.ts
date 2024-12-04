@@ -24,7 +24,7 @@ export const useCartStore = defineStore('cart', () => {
     return Cart.value.push(newCartProduct);
   };
 
-  const remove = (id: number) => {
+  const remove = (product: Product) => {
     //
   };
 

@@ -101,7 +101,7 @@ onMounted(() => {
                   />
                 </div>
                 <div>
-                  <q-btn
+                  <!-- <q-btn
                     :label="
                       cart.cart.has(product.id)
                         ? 'remove from cart'
@@ -110,13 +110,8 @@ onMounted(() => {
                     class="tw-h-full"
                     unelevated
                     color="green-5"
-                    @click="
-                      () =>
-                        cart.cart.has(product.id)
-                          ? cart.remove(product.id)
-                          : cart.add(product.id, carting)
-                    "
-                  />
+                   
+                  /> -->
                 </div>
                 <q-btn icon="favorite" class="tw-bg-slate-100" unelevated />
               </div>

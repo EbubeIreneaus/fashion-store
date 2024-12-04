@@ -88,6 +88,7 @@ const couponCode = ref('');
                       no-caps
                       :ripple="false"
                       text-color="red-14"
+                      @click="remove(ct.product)"
                       class="!tw-p-0"
                     >
                       <q-tooltip
