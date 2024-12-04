@@ -55,7 +55,7 @@ function addToCart(product:Product) {
       <div class="description tw-px-1.5 tw-py-1">
         <div class="tw-flex tw-justify-between tw-h-[25px]">
           <h3 class="tw-line-clamp-2 tw-text-ellipsis tw-px-1">
-            {{ product.long_title ?? product.name }}
+           <router-link :to="`/product/${product.id}`"> {{ product.long_title ?? product.name }}</router-link>
           </h3>
           <div
             class=" tw-font-bold text-accent"

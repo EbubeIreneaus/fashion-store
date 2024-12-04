@@ -1,38 +1,61 @@
 <script lang="ts" setup>
-import { useRoute } from 'vue-router';
+// import { useRoute } from 'vue-router';
 import BreadCrumbs from 'src/components/Buyer/BreadCrumbs.vue';
-import { inject, onMounted, ref } from 'vue';
-import { Product } from 'app/types/product';
+import { ref } from 'vue';
 import { useProduct } from 'src/stores/product';
 import ProductImageSlide from 'src/components/Buyer/Product/ProductImageSlide.vue';
 import ReviewsComp from 'src/components/Buyer/Product/ReviewsComp.vue';
 import { useCartStore } from 'src/stores/cart';
+import { storeToRefs } from 'pinia';
+import { Product } from 'app/types/product';
+import { useQuasar } from 'quasar';
 
-const cart = useCartStore();
-const { id: productId } = useRoute().params;
-const api = inject('api');
+const $q = useQuasar()
+const {add: cartAdd} = useCartStore()
 
-const product = ref<Product>({} as Product);
+const { Product: product } = storeToRefs(useProduct());
 
 const carting = ref(1);
 
-onMounted(() => {
-  (async function get_product_details() {
-    const [p, ps] = await Promise.all([
-      (await fetch(`${api}/api/single_product?id=${productId}`)).json(),
-      (await fetch(`${api}/api/related_product?id=${productId}`)).json(),
-    ]);
-    product.value = p.status == 'success' ? p.data : [];
-    useProduct().products = ps.status == 'success' ? ps.data : [];
-  })();
+defineOptions({
+  async preFetch({ store, currentRoute }) {
+    const Store = useProduct(store);
+    const {id} = currentRoute.params
+    const api = process.env.DEV
+      ? 'http://localhost:3000/api'
+      : 'https://sales-admin-server.financial-growths.com/api';
+
+    await fetch(`${api}/store/product/single?id=${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          Store.Product = data.product;
+        }
+      })
+      .catch((err) => {
+        console.error(err.message);
+      });
+  },
 });
+
+function addToCart(product:Product) {
+  cartAdd(product, carting.value)
+  $q.notify({
+    color: 'accent',
+    icon: 'check_circle',
+    position: 'top-right',
+    textColor: 'white',
+    message: 'Product added to cart.',
+    timeout: 1000
+  })
+}
 </script>
 
 <template>
   <q-page>
-    <BreadCrumbs :title="product?.name" :navs="['shop', 'product details']" />
+    <BreadCrumbs :title="'micheal'" :navs="['shop', 'product details']" />
 
-    <q-card flat square>
+    <q-card flat square v-if="product">
       <q-card-section class="">
         <div
           class="tw-grid lg:tw-grid-cols-2 tw-grid-cols-1 tw-gap-y-6 container tw-mx-auto tw-my-6"
@@ -43,7 +66,7 @@ onMounted(() => {
           <div class="tw-my-10 md:tw-px-5">
             <div class="">
               <h1 class="tw-text-3xl tw-font-bold tw-uppercase tw-mb-4">
-                {{ product.name }}
+                {{ product.long_title || product.name }}
               </h1>
 
               <div class="tw-mb-5">
@@ -51,8 +74,8 @@ onMounted(() => {
                   v-model="product.rating.rate"
                   size="medium"
                   readonly
-                  color="grey-5"
-                  color-selected="black"
+                  :color="product.rating.rate >= 3 ?'green-14': 'red-14'"
+                
                 />
                 <div class="tw-inline tw-ms-6 tw-font-semibold tw-text-lg">
                   ( {{ product.rating.count }} Reviews)
@@ -64,26 +87,25 @@ onMounted(() => {
                   ><span v-naira="product.market_price"></span
                 ></del>
                 <span
-                  v-naira="product.market_price + 0.3 * product.market_price"
+                  v-naira="(0.3 * product.market_price) + Number(product.market_price)"
                   class="text-h5 text-weight-bold tw-ps-5"
                 ></span>
               </div>
 
-              <div class="tw-mb-5">
-                <p class="text-body1 tw-text-balance tw-font-semibold">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
-                  corporis dolor adipisci alias explicabo dicta ad labore quasi
-                  sunt facilis.
-                </p>
+              <div class="tw-mb-5 tw-ps-5">
+                <div class="text-body1 tw-text-balance tw-font-semibold" v-html="product.desc">
+                 
+                </div>
               </div>
 
               <div class="tw-flex tw-flex-wrap tw-gap-5">
                 <div class="tw-flex tw-border tw-w-fit">
                   <q-btn
-                    icon="add"
+                    icon="remove"
                     unelevated
-                    color="green-5"
-                    @click="carting++"
+                    color="red-14"
+                    @click="carting--"
+                    :disable="carting < 1"
                   />
                   <q-input
                     v-model="carting"
@@ -91,27 +113,25 @@ onMounted(() => {
                     borderless
                     class="tw-w-20"
                     input-style="text-align: center"
+                   
                   />
                   <q-btn
-                    icon="remove"
+                    icon="add"
                     unelevated
-                    color="red-5"
-                    @click="carting--"
-                    :disable="carting < 1"
+                    color="green-14"
+                    @click="carting++"
+                    :disable="carting >= product.quantity"
                   />
                 </div>
                 <div>
-                  <!-- <q-btn
-                    :label="
-                      cart.cart.has(product.id)
-                        ? 'remove from cart'
-                        : 'add to cart'
-                    "
+                  <q-btn
+                   label="add to cart"
                     class="tw-h-full"
                     unelevated
-                    color="green-5"
+                    color="accent"
+                    @click="addToCart(product)"
                    
-                  /> -->
+                  />
                 </div>
                 <q-btn icon="favorite" class="tw-bg-slate-100" unelevated />
               </div>
@@ -124,7 +144,7 @@ onMounted(() => {
                   <q-item-section class="text-weight-bold tw-uppercase"
                     >Stock</q-item-section
                   >
-                  <q-item-section>(20)</q-item-section>
+                  <q-item-section>({{ product.quantity }})</q-item-section>
                 </q-item>
 
                 <q-item>
@@ -141,7 +161,18 @@ onMounted(() => {
                   <q-item-section class="tw-uppercase tw-font-bold"
                     >Weight</q-item-section
                   >
-                  <q-item-section class="tw-capitalize">50kg </q-item-section>
+                  <q-item-section class="tw-capitalize">Nill</q-item-section>
+                </q-item>
+                
+                <q-item>
+                  <q-item-section class="tw-uppercase tw-font-bold"
+                    >Brand</q-item-section
+                  >
+                  <q-item-section class="tw-capitalize"
+                    ><div class="tw-uppercase tw-font-semibold">
+                     Gucci
+                    </div>
+                  </q-item-section>
                 </q-item>
 
                 <q-item>
@@ -150,8 +181,7 @@ onMounted(() => {
                   >
                   <q-item-section class="tw-capitalize"
                     ><div class="tw-uppercase tw-font-semibold">
-                      Okigwe Ebube Ireneaus
-                      <q-btn icon="link" color="lime-5" flat dense to="" />
+                     Ireneaus Fashion Store
                     </div>
                   </q-item-section>
                 </q-item>

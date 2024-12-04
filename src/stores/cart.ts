@@ -3,24 +3,31 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { Product } from 'app/types/product';
 import { defineStore } from 'pinia';
-import { computed, onMounted, ref, watch } from 'vue';
-import { LocalStorage, Mutation } from 'quasar';
+import { computed, ref, watch } from 'vue';
+import { Mutation, SessionStorage } from 'quasar';
 
 type CartProduct = { product: Product; quantity: number };
 
 export const useCartStore = defineStore('cart', () => {
-  const Cart = ref<CartProduct[]>([] as CartProduct[]);
+
+  const CartItemFronStorage = JSON.parse(
+    SessionStorage.getItem('cartItems') || '[]'
+  ) as CartProduct[];
+
+  const Cart = ref<CartProduct[]>([]);
+
+  console.log(Cart.value);
 
   const length = computed(() => Cart.value.length);
 
-  const add = async (product: Product, quantity = 1) => {
+  const add = (product: Product, quantity = 1) => {
     const { id } = product;
     for (const item of Cart.value) {
       if (item.product.id == id) {
         return (item.quantity += quantity);
       }
     }
-    const newCartProduct: CartProduct = { 'product': { ...product }, quantity };
+    const newCartProduct: CartProduct = { product: { ...product }, quantity };
     return Cart.value.push(newCartProduct);
   };
 
@@ -58,6 +65,14 @@ export const useCartStore = defineStore('cart', () => {
     return price;
   });
 
+  watch(
+    () => Cart.value,
+    (newCart) => {
+      SessionStorage.setItem('cartItems', JSON.stringify(newCart));
+    },
+    { deep: true }
+  );
+
   return {
     Cart,
     length,
@@ -71,9 +86,3 @@ export const useCartStore = defineStore('cart', () => {
 //     LocalStorage.setItem('cartIds', [...cart.cart]);
 //   });
 // })
-// watch(
-//   () => useCartStore().length,
-//   (x) => {
-//     useCartStore().get_latest_cart_product();
-//   }
-// );

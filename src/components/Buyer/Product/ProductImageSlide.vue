@@ -1,9 +1,10 @@
+<!-- eslint-disable @typescript-eslint/no-unused-vars -->
 <script lang="ts" setup>
 import type { Product} from 'app/types/product';
-import { ref, watch } from 'vue';
+import { inject, ref, watch } from 'vue';
 const props = defineProps<{ product: Product }>();
-
-const currentImg = ref<string>('');
+const api = inject('api')
+const currentImg = ref<string>(props.product.image as string);
 
 const images = [
   'img/featured/feature-2.jpg',
@@ -30,7 +31,7 @@ watch(
 <template>
   <div class="">
     <div class="tw-p-5 tw-mx-auto tw-mb-5">
-      <q-img :src="currentImg" />
+      <q-img :src="`${api}/assets/images/products/${currentImg}`" :alt="`Buy ${product.long_title || product.name} at 20% discount price`" />
     </div>
     <swiper-container
       class="tw-w-full q-pa-md"
@@ -45,7 +46,7 @@ watch(
         :key="index"
         class="tw-border"
       >
-        <q-img :src="img" class="" @click="() => updateImg(index)" />
+        <!-- <q-img :src="`/${img}`" class="" @click="() => updateImg(index)" /> -->
       </swiper-slide>
     </swiper-container>
   </div>
