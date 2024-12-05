@@ -16,8 +16,6 @@ export const useCartStore = defineStore('cart', () => {
 
   const Cart = ref<CartProduct[]>([]);
 
-  console.log(Cart.value);
-
   const length = computed(() => Cart.value.length);
 
   const add = (product: Product, quantity = 1) => {

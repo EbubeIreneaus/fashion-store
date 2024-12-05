@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+import { ref } from 'vue';
+
+const kw = ref(null)
 </script>
 
 <template>
@@ -17,8 +20,8 @@
       </div>
 
       <div class=" lg:tw-col-span-6 tw-flex tw-items-center">
-        <input type="search" placeholder="what do you want?" class="tw-flex-grow tw-border tw-py-3 tw-px-2" />
-        <q-btn label="search" unelevated square class="btn tw-py-3 text-white"/>
+        <input v-model="kw" type="search" placeholder="what do you want?" class="tw-flex-grow tw-border tw-py-3 tw-px-2" />
+        <q-btn label="search" unelevated :to="'/search?keyword='+kw" :disable="!kw"  square class="btn tw-py-3 text-white"/>
       </div>
 
       <div class=" tw-py-2 lg:tw-col-span-3 tw-flex tw-justify-normal md:tw-justify-end lg:tw-justify-normal tw-gap-4">

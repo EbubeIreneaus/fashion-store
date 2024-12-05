@@ -14,6 +14,14 @@ const routes: RouteRecordRaw[] = [
     ],
   },
 
+  {
+    path: '/auth', 
+    children: [
+      {path:'login', component: () => import('pages/Auth/SignIn.vue')},
+      {path:'register', component: () => import('pages/Auth/SignUp.vue')}
+    ]
+  },
+
   // Always leave this as last one,
   // but you can also remove it
   {

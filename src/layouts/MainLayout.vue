@@ -29,7 +29,7 @@
             </ul>
             <q-separator vertical />
             <div>
-              <router-link to="">
+              <router-link to="/auth/login">
                 <q-icon name="account_circle" /> &nbsp;
                 <span>Login</span>
               </router-link>
@@ -164,7 +164,7 @@ const MenuLinks = [
   { title: 'HOME', href: '/', icon: '', sublink: [] },
   { title: 'SHOP', href: '/shop', icon: '', sublink: [] },
   { title: 'ABOUT', href: '/about', icon: '', sublink: [] },
-  { title: 'BLOG', href: '/blog', icon: '', sublink: [] },
+  { title: 'BLOG', href: '#', icon: '', sublink: [] },
   { title: 'CONTACT', href: '/contact', icon: '', sublink: [] },
 ];
 
