@@ -117,7 +117,7 @@
       </div>
     </div>
     <div class="tw-py-6 tw-text-sm tw-text-center tw-font-semibold">
-      © {{ new Date().getFullYear() }} THERAWMARKET.COM.NG. All rights reserved.
+      © {{ new Date().getFullYear() }} IRENEAUSFS.COM.NG. All rights reserved.
     </div>
   </footer>
 </template>

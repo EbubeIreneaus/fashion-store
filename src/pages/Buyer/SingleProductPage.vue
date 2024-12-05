@@ -53,7 +53,7 @@ function addToCart(product:Product) {
 
 <template>
   <q-page>
-    <BreadCrumbs :title="'micheal'" :navs="['shop', 'product details']" />
+    <BreadCrumbs :title="product? product.long_title || product.name: '404'" :navs="['shop', 'product details']" />
 
     <q-card flat square v-if="product">
       <q-card-section class="">
