@@ -152,19 +152,22 @@ import HeroCompnent from 'src/components/Buyer/HeroCompnent.vue';
 import SidebarComp from 'src/components/Buyer/SidebarComp.vue';
 import FooterComp from 'src/components/FooterComp.vue';
 import { useCartStore } from 'src/stores/cart';
-import { ref} from 'vue';
+import { ref, onMounted} from 'vue';
+import { useQuasar } from 'quasar';
+import { Product } from 'app/types/product';
 
 defineOptions({
   name: 'MainLayout',
 });
 
-const {total_price, length: CartLength} = storeToRefs(useCartStore());
+const {total_price, length: CartLength, Cart} = storeToRefs(useCartStore());
+const $q = useQuasar()
 
 const MenuLinks = [
   { title: 'HOME', href: '/', icon: '', sublink: [] },
   { title: 'SHOP', href: '/shop', icon: '', sublink: [] },
   { title: 'ABOUT', href: '/about', icon: '', sublink: [] },
-  { title: 'BLOG', href: '#', icon: '', sublink: [] },
+  { title: 'BLOG', href: '/blog', icon: '', sublink: [] },
   { title: 'CONTACT', href: '/contact', icon: '', sublink: [] },
 ];
 
@@ -172,5 +175,11 @@ const leftDrawerOpen = ref(false);
 function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value;
 }
+
+onMounted(() => {
+  if ($q.sessionStorage.has('cartItems')) {
+    Cart.value = $q.sessionStorage.getItem('cartItems') as unknown as {product: Product, quantity: number}[]
+  }
+})
 
 </script>

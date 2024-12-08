@@ -1,10 +1,68 @@
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { reactive, ref, inject } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { useAuthStore } from 'src/stores/Authentication';
+import { storeToRefs } from 'pinia';
+import { useQuasar } from 'quasar';
+
+const route = useRoute();
+const router = useRouter();
+const $q = useQuasar();
+
+const isLoading = ref(false);
+const api = inject('api');
+const { r } = route.query;
+const { user: authUser, redirect_to, isLoggedIn} = storeToRefs(useAuthStore());
+if (r) {
+  redirect_to.value = r as string
+  
+}
 
 const user = reactive({
   email: '',
-  password: ''
+  psw: ''
 })
+
+function login() {
+
+  isLoading.value = true;
+
+  fetch(`${api}/store/auth/login`, {
+    method: 'post',
+    body: JSON.stringify(user),
+	credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+		isLoading.value = false
+      if (data.success) {
+        authUser.value = data.user;
+        isLoggedIn.value = true
+        if (redirect_to.value) {
+          return router.push('/'+redirect_to.value);
+        } else {
+          return router.push('/shop');
+        }
+      }
+
+      $q.notify({
+        message: data.msg,
+        color: 'red-14',
+        icon: 'error',
+      });
+    })
+    .catch((error) => {
+		isLoading.value = false
+      $q.notify({
+        message: error.message,
+        color: 'red-14',
+        icon: 'error',
+      });
+    });
+}
 </script>
 
 <template>
@@ -54,16 +112,16 @@ const user = reactive({
                   <div class="">
                     <label
                       class="tw-block tw-mb-2 tw-text-sm tw-font-bold tw-text-gray-700 dark:tw-text-white"
-                      for="c_password"
+                      for="password"
                     >
-                      Confirm Password
+                      Password
                     </label>
                     <q-input
                       class="tw-w-full tw-px-3 tw-py-2 tw-mb-3 tw-text-sm tw-leading-tight tw-text-gray-700 dark:tw-text-white tw-border tw-rounded tw-shadow tw-appearance-none focus:tw-outline-none focus:tw-shadow-outline"
-                      id="c_password"
+                      id="password"
                       type="password"
                       placeholder="******************"
-                      v-model="user.email"
+                      v-model="user.psw"
                       bg-color="transparent"
                       dense
                       borderless
@@ -71,12 +129,14 @@ const user = reactive({
                   </div>
                 </div>
                 <div class="tw-mb-6 tw-text-center">
-                  <button
+                  <q-btn
                     class="tw-w-full tw-px-4 tw-py-2 tw-font-bold tw-text-white bg-accent tw-rounded-full hover:tw-bg-green-800 focus:tw-outline-none focus:tw-shadow-outline"
                     type="button"
+                    @click="login"
+                    :loading="isLoading"
                   >
                     Login
-                  </button>
+                  </q-btn>
                 </div>
                 <hr class="tw-mb-6 tw-border-t" />
                 <div class="tw-text-center">

@@ -9,12 +9,8 @@ import { Mutation, SessionStorage } from 'quasar';
 type CartProduct = { product: Product; quantity: number };
 
 export const useCartStore = defineStore('cart', () => {
-
-  const CartItemFronStorage = JSON.parse(
-    SessionStorage.getItem('cartItems') || '[]'
-  ) as CartProduct[];
-
-  const Cart = ref<CartProduct[]>([]);
+  // Reactive cart state
+  const Cart = ref<CartProduct[]>([] as CartProduct[]);
 
   const length = computed(() => Cart.value.length);
 
@@ -63,13 +59,15 @@ export const useCartStore = defineStore('cart', () => {
     return price;
   });
 
-  watch(
-    () => Cart.value,
-    (newCart) => {
-      SessionStorage.setItem('cartItems', JSON.stringify(newCart));
-    },
-    { deep: true }
-  );
+  const initializeWatcher = ref(false);
+  if (process.env.CLIENT) {
+    watch(()=>Cart.value, (newVal) => {
+      if (initializeWatcher.value) {
+        return SessionStorage.set('cartItems', newVal)
+      }
+      initializeWatcher.value = true
+    }, {deep: true})
+  }
 
   return {
     Cart,

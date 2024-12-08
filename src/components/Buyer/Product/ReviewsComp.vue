@@ -21,8 +21,8 @@
 
         <!-- Replace v-btn with q-btn from Quasar -->
         <q-btn
-          type="submit"
-          color="primary"
+          type="button"
+          color="accent"
           class="tw-inline-flex tw-font-medium  tw-mx-4"
         >
           Post comment

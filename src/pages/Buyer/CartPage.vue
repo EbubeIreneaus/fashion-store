@@ -143,7 +143,7 @@ const couponCode = ref('');
                         <q-item-section>Total (+VAT)</q-item-section>
                         <q-item-section side
                           ><span
-                            v-naira="total_price + 2500 + 700"
+                            v-naira="total_price + 2500 "
                           ></span
                         ></q-item-section>
                       </q-item>

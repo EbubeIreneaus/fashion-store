@@ -144,7 +144,7 @@ function endFiltering() {
             class="tw-grid lg:tw-grid-cols-5 md:tw-grid-cols-4 sm:tw-grid-cols-3 tw-grid-cols-2 tw-gap-x-4 tw-gap-y-6"
             v-auto-animate
           >
-            <div v-for="(_, index) in 24" :key="index" class="">
+            <div v-for="(_, index) in Shop?.length || 24" :key="index" class="">
               <PreLoader />
             </div>
           </div>
@@ -160,7 +160,7 @@ function endFiltering() {
                 <SingleProduct :product="product" />
               </div>
             </div>
-            <div class="tw-flex tw-justify-center tw-mt-12 mb-4">
+            <div class="tw-flex tw-justify-center tw-mt-12 mb-4" v-if="Shop.length >= 24"> 
               <q-pagination
                 v-model="current"
                 :max="10"

@@ -15,7 +15,7 @@ import BreadCrumbs from 'src/components/Buyer/BreadCrumbs.vue';
               class="tw-mb-6 tw-max-w-3xl tw-text-center sm:tw-text-center md:tw-mx-auto md:tw-mb-12"
             >
               <p
-                class="tw-text-base tw-font-semibold tw-uppercase tw-tracking-wide tw-text-blue-600"
+                class="tw-text-base tw-font-semibold tw-uppercase tw-tracking-wide text-accent"
               >
                 Contact
               </p>
@@ -44,7 +44,7 @@ import BreadCrumbs from 'src/components/Buyer/BreadCrumbs.vue';
                 <ul class="tw-mb-6 md:tw-mb-0">
                   <li class="tw-flex">
                     <div
-                      class="tw-flex tw-h-10 tw-w-10 tw-items-center tw-justify-center tw-rounded tw-bg-blue-900 tw-text-gray-50"
+                      class="tw-flex tw-h-10 tw-w-10 tw-items-center tw-justify-center tw-rounded bg-accent tw-text-gray-50"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -80,7 +80,7 @@ import BreadCrumbs from 'src/components/Buyer/BreadCrumbs.vue';
                   </li>
                   <li class="tw-flex">
                     <div
-                      class="tw-flex tw-h-10 tw-w-10 tw-items-center tw-justify-center tw-rounded tw-bg-blue-900 tw-text-gray-50"
+                      class="tw-flex tw-h-10 tw-w-10 tw-items-center tw-justify-center tw-rounded bg-accent tw-text-gray-50"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -117,7 +117,7 @@ import BreadCrumbs from 'src/components/Buyer/BreadCrumbs.vue';
                   </li>
                   <li class="tw-flex">
                     <div
-                      class="tw-flex tw-h-10 tw-w-10 tw-items-center tw-justify-center tw-rounded tw-bg-blue-900 tw-text-gray-50"
+                      class="tw-flex tw-h-10 tw-w-10 tw-items-center tw-justify-center tw-rounded bg-accent tw-text-gray-50"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -208,7 +208,7 @@ import BreadCrumbs from 'src/components/Buyer/BreadCrumbs.vue';
                   <div class="tw-text-center">
                     <button
                       type="submit"
-                      class="tw-w-full tw-bg-blue-800 tw-text-white tw-px-6 tw-py-3 tw-font-xl tw-rounded-md sm:tw-mb-0"
+                      class="tw-w-full bg-accent tw-text-white tw-px-6 tw-py-3 tw-font-xl tw-rounded-md sm:tw-mb-0"
                     >
                       Send Message
                     </button>
