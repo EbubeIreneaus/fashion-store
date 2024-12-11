@@ -19,6 +19,7 @@ export const useAuthStore = defineStore('authentication', () => {
       credentials: 'include',
       headers: {
         Accept: 'application/json',
+        Authorization: `Bearer ${Cookies.get('authKey')}`
       },
     })
       .then((res) => res.json())

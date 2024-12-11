@@ -1184,6 +1184,7 @@ function checkout() {
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
+      Authorization: `Bearer ${$q.cookies.get('authKey') as string}`
     },
   })
   .then(res => res.json())
