@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-// import { useRoute } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import BreadCrumbs from 'src/components/Buyer/BreadCrumbs.vue';
 import { ref } from 'vue';
 import { useProduct } from 'src/stores/product';
@@ -9,9 +9,16 @@ import { useCartStore } from 'src/stores/cart';
 import { storeToRefs } from 'pinia';
 import { Product } from 'app/types/product';
 import { useQuasar } from 'quasar';
+import { useFavStore } from 'src/stores/favourite';
+import { useAuthStore } from 'src/stores/Authentication';
 
-const $q = useQuasar()
-const {add: cartAdd} = useCartStore()
+const $q = useQuasar();
+const { add: cartAdd } = useCartStore();
+const FavStore = useFavStore();
+const { favorite } = storeToRefs(FavStore);
+const { isLoggedIn } = storeToRefs(useAuthStore());
+const route = useRoute();
+const router = useRouter();
 
 const { Product: product } = storeToRefs(useProduct());
 
@@ -20,7 +27,7 @@ const carting = ref(1);
 defineOptions({
   async preFetch({ store, currentRoute }) {
     const Store = useProduct(store);
-    const {id} = currentRoute.params
+    const { id } = currentRoute.params;
     const api = process.env.DEV
       ? 'http://localhost:3000/api'
       : 'https://sales-admin-server.financial-growths.com/api';
@@ -38,22 +45,52 @@ defineOptions({
   },
 });
 
-function addToCart(product:Product) {
-  cartAdd(product, carting.value)
+function addToCart(product: Product) {
+  cartAdd(product, carting.value);
   $q.notify({
     color: 'accent',
     icon: 'check_circle',
     position: 'top-right',
     textColor: 'white',
     message: 'Product added to cart.',
-    timeout: 1000
-  })
+    timeout: 1000,
+  });
+}
+
+function favBtnClicked(id: number) {
+  if (!isLoggedIn.value) {
+    return $q
+      .dialog({
+        title: 'Authentication Failed',
+        message:
+          'This account cannot be authenticated, please sign in or create a new account to proceed with this request.',
+        ok: 'signin',
+        persistent: true,
+        cancel: true,
+      })
+      .onOk(() => {
+        return router.push({
+          path: '/auth/login',
+          query: { r: 'product/' + route.params.id },
+        });
+      }).onCancel(()=> {
+        return false
+      })
+  }
+
+  if (favorite.value.includes(id)) {
+    return FavStore.removeFromFavorite(id);
+  }
+  return FavStore.addToFavorite(id);
 }
 </script>
 
 <template>
   <q-page>
-    <BreadCrumbs :title="product? product.long_title || product.name: '404'" :navs="['shop', 'product details']" />
+    <BreadCrumbs
+      :title="product ? product.long_title || product.name : '404'"
+      :navs="['shop', 'product details']"
+    />
 
     <q-card flat square v-if="product">
       <q-card-section class="">
@@ -74,8 +111,7 @@ function addToCart(product:Product) {
                   v-model="product.rating.rate"
                   size="medium"
                   readonly
-                  :color="product.rating.rate >= 3 ?'green-14': 'red-14'"
-                
+                  :color="product.rating.rate >= 3 ? 'green-14' : 'red-14'"
                 />
                 <div class="tw-inline tw-ms-6 tw-font-semibold tw-text-lg">
                   ( {{ product.rating.count }} Reviews)
@@ -87,15 +123,18 @@ function addToCart(product:Product) {
                   ><span v-naira="product.market_price"></span
                 ></del>
                 <span
-                  v-naira="(0.3 * product.market_price) + Number(product.market_price)"
+                  v-naira="
+                    0.3 * product.market_price + Number(product.market_price)
+                  "
                   class="text-h5 text-weight-bold tw-ps-5"
                 ></span>
               </div>
 
               <div class="tw-mb-5 tw-ps-5">
-                <div class="text-body1 tw-text-balance tw-font-semibold" v-html="product.desc">
-                 
-                </div>
+                <div
+                  class="text-body1 tw-text-balance tw-font-semibold"
+                  v-html="product.desc"
+                ></div>
               </div>
 
               <div class="tw-flex tw-flex-wrap tw-gap-5">
@@ -113,7 +152,6 @@ function addToCart(product:Product) {
                     borderless
                     class="tw-w-20"
                     input-style="text-align: center"
-                   
                   />
                   <q-btn
                     icon="add"
@@ -125,15 +163,28 @@ function addToCart(product:Product) {
                 </div>
                 <div>
                   <q-btn
-                   label="add to cart"
+                    label="add to cart"
                     class="tw-h-full"
                     unelevated
                     color="accent"
                     @click="addToCart(product)"
-                   
                   />
                 </div>
-                <q-btn icon="favorite" class="tw-bg-slate-100" unelevated />
+                <q-btn
+                  icon="favorite"
+                  class="tw-bg-slate-100"
+                  unelevated
+                  v-if="favorite.includes(product.id)"
+                  text-color="green-14"
+                  @click="favBtnClicked(product.id)"
+                />
+                <q-btn
+                  icon="favorite"
+                  class="tw-bg-slate-100"
+                  unelevated
+                  v-else
+                  @click="favBtnClicked(product.id)"
+                />
               </div>
             </div>
 
@@ -163,15 +214,13 @@ function addToCart(product:Product) {
                   >
                   <q-item-section class="tw-capitalize">Nill</q-item-section>
                 </q-item>
-                
+
                 <q-item>
                   <q-item-section class="tw-uppercase tw-font-bold"
                     >Brand</q-item-section
                   >
                   <q-item-section class="tw-capitalize"
-                    ><div class="tw-uppercase tw-font-semibold">
-                     Gucci
-                    </div>
+                    ><div class="tw-uppercase tw-font-semibold">Gucci</div>
                   </q-item-section>
                 </q-item>
 
@@ -181,7 +230,7 @@ function addToCart(product:Product) {
                   >
                   <q-item-section class="tw-capitalize"
                     ><div class="tw-uppercase tw-font-semibold">
-                     Ireneaus Fashion Store
+                      Ireneaus Fashion Store
                     </div>
                   </q-item-section>
                 </q-item>

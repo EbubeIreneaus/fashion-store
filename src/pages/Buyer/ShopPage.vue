@@ -5,11 +5,14 @@ import SingleProduct from 'src/components/Buyer/Product/SingleProduct.vue';
 import ShopSidebar from 'src/components/Buyer/ShopSidebar.vue';
 import { useProduct } from 'src/stores/product';
 // import { vAutoAnimate } from '@formkit/auto-animate';
+
 import { ref, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 import PreLoader from 'src/components/Buyer/Product/PreLoader.vue';
 
 // const api = inject('api');
+
+
 
 let current = ref(1);
 let sort_by = ref<

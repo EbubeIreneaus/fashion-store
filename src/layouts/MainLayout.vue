@@ -86,11 +86,11 @@
               :ripple="false"
               class="!tw-text-black focus:!tw-bg-transparent"
             >
-              <q-badge label="2" class="btn" floating rounded></q-badge>
+              <q-badge :label="favLength" class="btn" floating rounded></q-badge>
             </q-btn>
 
             <q-btn
-              icon="shopping_bag"
+              icon="shopping_cart"
               flat
               size="sm"
               :ripple="false"
@@ -171,6 +171,7 @@ import SidebarComp from 'src/components/Buyer/SidebarComp.vue';
 import FooterComp from 'src/components/FooterComp.vue';
 import { useAuthStore } from 'src/stores/Authentication';
 import { useCartStore } from 'src/stores/cart';
+import { useFavStore } from 'src/stores/favourite';
 import { ref, onMounted} from 'vue';
 import { useQuasar } from 'quasar';
 import { Product } from 'app/types/product';
@@ -180,6 +181,8 @@ defineOptions({
 });
 
 const {total_price, length: CartLength, Cart} = storeToRefs(useCartStore());
+const {favLength} = storeToRefs(useFavStore())
+
 const {isLoggedIn, user} = storeToRefs(useAuthStore())
 const $q = useQuasar()
 
