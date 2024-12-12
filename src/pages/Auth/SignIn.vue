@@ -5,6 +5,7 @@ import { useAuthStore } from 'src/stores/Authentication';
 import { storeToRefs } from 'pinia';
 import { useQuasar } from 'quasar';
 
+
 const route = useRoute();
 const router = useRouter();
 const $q = useQuasar();

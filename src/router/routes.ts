@@ -21,7 +21,8 @@ const routes: RouteRecordRaw[] = [
     path: '/auth', 
     children: [
       {path:'login', component: () => import('pages/Auth/SignIn.vue')},
-      {path:'register', component: () => import('pages/Auth/SignUp.vue')}
+      {path:'register', component: () => import('pages/Auth/SignUp.vue')},
+      {path: 'logout', component: () => import('pages/Auth/SignOut.vue')}
     ]
   },
 

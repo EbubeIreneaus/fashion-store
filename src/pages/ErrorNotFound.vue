@@ -1,5 +1,5 @@
 <template>
-  <div class="tw-bg-gradient-to-r tw-from-purple-300 tw-to-blue-200">
+  <div class="tw-bg-gradient-to-r tw-from-lime-300 tw-to-green-200">
     <div
       class="tw-w-9/12 tw-m-auto tw-py-16 tw-min-h-screen tw-flex tw-items-center tw-justify-center"
     >
@@ -7,16 +7,16 @@
         class="tw-bg-white tw-shadow tw-overflow-hidden sm:tw-rounded-lg tw-pb-8"
       >
         <div class="tw-border-t tw-border-gray-200 tw-text-center tw-pt-8">
-          <h1 class="tw-text-9xl tw-font-bold tw-text-purple-400">404</h1>
+          <h1 class="tw-text-9xl tw-font-bold text-accent">404</h1>
           <h1 class="tw-text-6xl tw-font-medium tw-py-8">
             Oops! Page not found
           </h1>
           <p class="tw-text-2xl tw-pb-8 tw-px-12 tw-font-medium">
-            Oops! The page you are looking for may have not been added as this is a side
-            project still under development
+            Oops! The page you are looking for may have not been added as this
+            project is still under development
           </p>
           <button
-            class="tw-bg-gradient-to-r tw-from-purple-400 tw-to-blue-500 hover:tw-from-pink-500 hover:tw-to-orange-500 tw-text-white tw-font-semibold tw-px-6 tw-py-3 tw-rounded-md tw-mr-6"
+            class="tw-bg-gradient-to-r tw-from-lime-400 tw-to-green-500 hover:tw-from-pink-500 hover:tw-to-orange-500 tw-text-white tw-font-semibold tw-px-6 tw-py-3 tw-rounded-md tw-mr-6"
           >
             <router-link to="/">Home Page</router-link>
           </button>

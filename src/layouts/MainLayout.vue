@@ -2,18 +2,18 @@
   <q-layout view="lhh lpR lff">
     <q-header class="tw-bg-[#FFFFFF] text-black">
       <!-- toppest side -->
-      <div class="tw-bg-[#F5F5F5] tw-hidden lg:tw-block">
+      <div class="tw-bg-[#F5F5F5]">
         <div
-          class="tw-flex tw-justify-between container tw-mx-auto tw-py-3 text-black"
+          class="tw-flex tw-justify-end md:tw-justify-between tw-max-w-[90%] tw-mx-auto tw-py-3 text-black"
         >
-          <div class="tw-flex tw-justify-between tw-gap-5">
+          <div class="tw-hidden md:tw-flex tw-justify-between tw-gap-5">
             <div>care@ireneausfs.com.ng</div>
-            <q-separator vertical />
-            <div>Free Shipping for all Order of ₦10,000.00</div>
+            <q-separator vertical  />
+            <div class="tw-hidden lg:tw-inline-block">Free Shipping for all Order of ₦10,000.00</div>
           </div>
 
-          <div class="tw-flex tw-justify-between tw-gap-5">
-            <ul class="tw-flex tw-gap-4">
+          <div class="tw-flex  justify-end lg:tw-justify-between tw-gap-5">
+            <ul class="tw-hidden lg:tw-flex tw-gap-4">
               <a href=""
                 ><li><q-icon name="fa-brands fa-facebook" /></li
               ></a>
@@ -27,7 +27,7 @@
                 ><li><q-icon name="fa-brands fa-linkedin" /></li
               ></a>
             </ul>
-            <q-separator vertical />
+            <!-- <q-separator vertical /> -->
             <div v-if="!isLoggedIn">
               <router-link to="/auth/login">
                 <q-icon name="account_circle" /> &nbsp;
@@ -35,8 +35,7 @@
               </router-link>
             </div>
             <div v-else>
-              <q-btn icon="account_circle" :label="user.firstname" flat dense>
-                <q-menu>
+              <q-btn-dropdown size="md" icon="account_circle" :label="user.firstname" flat dense>
                   <q-list>
                     <q-item to="/">
                       <q-item-section>Settings</q-item-section>
@@ -51,8 +50,7 @@
                       <q-item-section>Signout</q-item-section>
                     </q-item>
                   </q-list>
-                </q-menu>
-              </q-btn>
+              </q-btn-dropdown>
             </div>
           </div>
         </div>

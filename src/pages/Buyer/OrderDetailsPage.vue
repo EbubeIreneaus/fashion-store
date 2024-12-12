@@ -93,7 +93,7 @@ if (!salesId) {
                 </div>
             </q-card-section>
             <q-card-actions>
-                <q-btn icon="reviews" label="rate product" flat dense color="accent"></q-btn>
+                <q-btn icon="reviews" label="rate our service" flat dense color="accent" href="#"></q-btn>
             </q-card-actions>
         </q-card>
     </div>

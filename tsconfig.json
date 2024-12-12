@@ -16,6 +16,7 @@
 
   "include": [
     "src/**/*", "public/js",
+    "src-ssr/*.d.ts"
     
   ]
 }
