@@ -28,11 +28,31 @@
               ></a>
             </ul>
             <q-separator vertical />
-            <div>
+            <div v-if="!isLoggedIn">
               <router-link to="/auth/login">
                 <q-icon name="account_circle" /> &nbsp;
                 <span>Login</span>
               </router-link>
+            </div>
+            <div v-else>
+              <q-btn icon="account_circle" :label="user.firstname" flat dense>
+                <q-menu>
+                  <q-list>
+                    <q-item to="/">
+                      <q-item-section>Settings</q-item-section>
+                    </q-item>
+                    <q-item to="/favorite">
+                      <q-item-section>Favourites</q-item-section>
+                    </q-item>
+                    <q-item to="/myOrders">
+                      <q-item-section>Orders</q-item-section>
+                    </q-item>
+                    <q-item to="/auth/logout">
+                      <q-item-section>Signout</q-item-section>
+                    </q-item>
+                  </q-list>
+                </q-menu>
+              </q-btn>
             </div>
           </div>
         </div>
@@ -151,6 +171,7 @@ import { storeToRefs } from 'pinia';
 import HeroCompnent from 'src/components/Buyer/HeroCompnent.vue';
 import SidebarComp from 'src/components/Buyer/SidebarComp.vue';
 import FooterComp from 'src/components/FooterComp.vue';
+import { useAuthStore } from 'src/stores/Authentication';
 import { useCartStore } from 'src/stores/cart';
 import { ref, onMounted} from 'vue';
 import { useQuasar } from 'quasar';
@@ -161,6 +182,7 @@ defineOptions({
 });
 
 const {total_price, length: CartLength, Cart} = storeToRefs(useCartStore());
+const {isLoggedIn, user} = storeToRefs(useAuthStore())
 const $q = useQuasar()
 
 const MenuLinks = [

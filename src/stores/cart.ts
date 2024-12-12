@@ -4,7 +4,8 @@
 import type { Product } from 'app/types/product';
 import { defineStore } from 'pinia';
 import { computed, ref, watch } from 'vue';
-import { Mutation, SessionStorage } from 'quasar';
+import { colors, Mutation, SessionStorage } from 'quasar';
+import { Notify } from 'quasar';
 
 type CartProduct = { product: Product; quantity: number };
 
@@ -27,6 +28,17 @@ export const useCartStore = defineStore('cart', () => {
 
   const remove = (product: Product) => {
     //
+    const {id} = product
+    const index = Cart.value.findIndex(pr => pr.product.id = id)
+    Cart.value.splice(index, 1)
+    return Notify.create({
+      message: 'Product removed from cart',
+      color: 'red-3',
+      textColor: 'red-14',
+      icon: 'cancel',
+      iconColor: 'red-14',
+      position: 'top-right'
+    })
   };
 
   // async function get_latest_cart_product(id: number, item_count = 1) {
