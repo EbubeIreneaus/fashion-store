@@ -1,8 +1,11 @@
 <script lang="ts" setup>
 import { Product } from 'app/types/product';
 import { inject } from 'vue';
+import { useCartStore } from 'src/stores/cart';
 
 defineProps<{ product: Product }>();
+
+const {add: addToCart} = useCartStore()
 
 const api = inject('api');
 </script>
@@ -35,7 +38,7 @@ const api = inject('api');
               <span>{{ product.rating.rate.toFixed(1) }}</span>
             </div>
             <div>
-              <q-btn flat dense icon="shopping_cart" color="accent" size="sm" />
+              <q-btn flat dense icon="shopping_cart" color="accent" size="sm" @click="addToCart(product)" />
             </div>
           </div>
         </div>
