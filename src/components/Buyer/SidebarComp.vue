@@ -1,10 +1,13 @@
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
 <script lang="ts" setup>
+import { storeToRefs } from 'pinia';
 import { useCartStore } from 'src/stores/cart';
+import { useFavStore } from 'src/stores/favourite';
 import { computed } from 'vue';
 defineProps<{ menu: any[] }>();
 
 const cart = computed(() => useCartStore());
+const {favLength} = storeToRefs(useFavStore())
 </script>
 
 <template>
@@ -21,8 +24,9 @@ const cart = computed(() => useCartStore());
           size="sm"
           :ripple="false"
           class="!tw-text-black focus:!tw-bg-transparent"
+          to="/favorite"
         >
-          <q-badge label="0" class="btn" floating rounded></q-badge>
+          <q-badge :label="favLength > 9 ? '9+': favLength" class="btn" floating rounded></q-badge>
         </q-btn>
 
         <q-btn
@@ -33,7 +37,7 @@ const cart = computed(() => useCartStore());
           class="!tw-text-black focus:!tw-bg-transparent"
           to="/cart"
         >
-          <q-badge :label="cart.length" floating class="btn" rounded></q-badge>
+          <q-badge :label="cart.length > 9 ? '9+' : cart.length" floating class="btn" rounded></q-badge>
         </q-btn>
 
         &nbsp;&nbsp;

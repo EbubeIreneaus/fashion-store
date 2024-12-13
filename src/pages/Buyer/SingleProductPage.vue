@@ -47,14 +47,6 @@ defineOptions({
 
 function addToCart(product: Product) {
   cartAdd(product, carting.value);
-  $q.notify({
-    color: 'accent',
-    icon: 'check_circle',
-    position: 'top-right',
-    textColor: 'white',
-    message: 'Product added to cart.',
-    timeout: 1000,
-  });
 }
 
 function favBtnClicked(id: number) {
@@ -78,10 +70,7 @@ function favBtnClicked(id: number) {
       })
   }
 
-  if (favorite.value.includes(id)) {
-    return FavStore.removeFromFavorite(id);
-  }
-  return FavStore.addToFavorite(id);
+  FavStore.updateFavorite(id)
 }
 </script>
 

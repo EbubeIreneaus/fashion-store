@@ -13,7 +13,9 @@ const routes: RouteRecordRaw[] = [
       {path: 'cart', component: ()=> import('pages/Buyer/CartPage.vue')},
       {path: 'checkout', component: () => import('pages/Buyer/CheckoutPage.vue')},
       {path: 'myOrders', component: () => import('pages/Buyer/OrdersPage.vue')},
-      {path: '/order/details', component: () => import('pages/Buyer/OrderDetailsPage.vue')}
+      {path: 'order/details', component: () => import('pages/Buyer/OrderDetailsPage.vue')},
+      {path: 'favorite', component: () => import('pages/Buyer/FavoritePage.vue')},
+
     ],
   },
   {path: '/paySuccess', component: () => import('pages/Buyer/PaySuccess.vue')},

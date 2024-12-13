@@ -19,26 +19,42 @@ export const useCartStore = defineStore('cart', () => {
     const { id } = product;
     for (const item of Cart.value) {
       if (item.product.id == id) {
-        return (item.quantity += quantity);
+        item.quantity += quantity;
+        return Notify.create({
+          color: 'accent',
+          icon: 'check_circle',
+          position: 'top-right',
+          textColor: 'white',
+          message: 'Product quantity increased by ' + quantity,
+          timeout: 1000,
+        });
       }
     }
     const newCartProduct: CartProduct = { product: { ...product }, quantity };
-    return Cart.value.push(newCartProduct);
+    Cart.value.push(newCartProduct);
+    return Notify.create({
+      color: 'accent',
+      icon: 'check_circle',
+      position: 'top-right',
+      textColor: 'white',
+      message: 'Product added to cart.',
+      timeout: 1000,
+    });
   };
 
   const remove = (product: Product) => {
     //
-    const {id} = product
-    const index = Cart.value.findIndex(pr => pr.product.id = id)
-    Cart.value.splice(index, 1)
+    const { id } = product;
+    const index = Cart.value.findIndex((pr) => (pr.product.id = id));
+    Cart.value.splice(index, 1);
     return Notify.create({
       message: 'Product removed from cart',
       color: 'red-3',
       textColor: 'red-14',
       icon: 'cancel',
       iconColor: 'red-14',
-      position: 'top-right'
-    })
+      position: 'top-right',
+    });
   };
 
   // async function get_latest_cart_product(id: number, item_count = 1) {
@@ -73,12 +89,16 @@ export const useCartStore = defineStore('cart', () => {
 
   const initializeWatcher = ref(false);
   if (process.env.CLIENT) {
-    watch(()=>Cart.value, (newVal) => {
-      if (initializeWatcher.value) {
-        return SessionStorage.set('cartItems', newVal)
-      }
-      initializeWatcher.value = true
-    }, {deep: true})
+    watch(
+      () => Cart.value,
+      (newVal) => {
+        if (initializeWatcher.value) {
+          return SessionStorage.set('cartItems', newVal);
+        }
+        initializeWatcher.value = true;
+      },
+      { deep: true }
+    );
   }
 
   return {

@@ -85,8 +85,9 @@
               size="sm"
               :ripple="false"
               class="!tw-text-black focus:!tw-bg-transparent"
+              to="/favorite"
             >
-              <q-badge :label="favLength" class="btn" floating rounded></q-badge>
+              <q-badge :label="favLength > 10? '10+': favLength" class="btn" floating rounded ></q-badge>
             </q-btn>
 
             <q-btn
@@ -125,19 +126,20 @@
           size="sm"
           :ripple="false"
           class="!tw-text-black focus:!tw-bg-transparent"
+          to="/favorite"
         >
-          <q-badge label="0" class="btn" floating rounded></q-badge>
+          <q-badge :label="favLength > 9 ?'9+' :favLength" class="btn" floating rounded></q-badge>
         </q-btn>
 
         <q-btn
-          icon="shopping_bag"
+          icon="shopping_cart"
           flat
           size="sm"
           :ripple="false"
           class="!tw-text-black focus:!tw-bg-transparent"
           to="/cart"
         >
-          <q-badge :label="CartLength" floating class="btn" rounded></q-badge>
+          <q-badge :label="CartLength > 9 ? '9+': CartLength" floating class="btn" rounded></q-badge>
         </q-btn>
 
         &nbsp;&nbsp;

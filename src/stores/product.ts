@@ -11,8 +11,6 @@ export const useProduct = defineStore('products', () => {
   const Rated = ref<Product[]>([] as Product[])
   const Shop =  ref<null | Product[]>(null);
 
-  console.log(products.value)
-
   return {
     products,
     Shop,
