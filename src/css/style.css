@@ -29,8 +29,8 @@ body {
 	height: 100%;
 	font-family: "Cairo", sans-serif;
 	-webkit-font-smoothing: antialiased;
-	overflow: hidden;
-	/* font-smoothing: antialiased; */
+	
+	font-smoothing: antialiased;
 }
 .overflow-scroll{
 	overflow: auto !important;
