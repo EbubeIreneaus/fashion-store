@@ -1256,7 +1256,7 @@ function checkout() {
                       option-label="name"
                       emit-value
                       map-options
-                      class="tw-block tw-w-full tw-rounded-lg tw-border tw-border-gray-300 tw-bg-gray-50 tw-px-2.5 tw-text-sm tw-text-gray-900 focus:tw-border-primary-500 focus:tw-ring-primary-500 dark:tw-border-gray-600 dark:tw-bg-gray-700"
+                      class="tw-block tw-w-full tw-rounded-lg tw-border tw-border-gray-300 tw-bg-gray-50 tw-px-2.5 tw-text-sm tw-text-gray-900 focus:tw-border-primary-500 focus:tw-ring-primary-500"
                       v-model="address.state"
                     />
                   </div>
@@ -1265,7 +1265,7 @@ function checkout() {
                     <div class="tw-mb-2 tw-flex tw-items-center tw-gap-2">
                       <label
                         for="select-city-input-3"
-                        class="tw-block tw-text-sm tw-font-medium tw-text-gray-900 dark:tw-text-white"
+                        class="tw-block tw-text-sm tw-font-medium tw-text-gray-900"
                       >
                         City*
                       </label>
@@ -1290,7 +1290,7 @@ function checkout() {
                     <input
                       type="tel"
                       id="phone"
-                      class="tw-block tw-w-full tw-rounded-lg tw-border tw-border-gray-300 tw-bg-gray-50 tw-p-2.5 tw-text-sm tw-text-gray-900 focus:tw-border-primary-500 focus:tw-ring-primary-500 dark:tw-border-gray-600 dark:tw-bg-gray-700 dark:tw-text-white dark:tw-placeholder:tw-text-gray-400 dark:focus:tw-border-primary-500 dark:focus:tw-ring-primary-500"
+                      class="tw-block tw-w-full tw-rounded-lg tw-border tw-border-gray-300 tw-bg-gray-50 tw-p-2.5 tw-text-sm tw-text-gray-900 focus:tw-border-primary-500 focus:tw-ring-primary-500"
                       placeholder="8061982520"
                       required
                       v-model="address.phone1"
@@ -1307,7 +1307,7 @@ function checkout() {
                     <input
                       type="tel"
                       id="phone2"
-                      class="tw-block tw-w-full tw-rounded-lg tw-border tw-border-gray-300 tw-bg-gray-50 tw-p-2.5 tw-text-sm tw-text-gray-900 focus:tw-border-primary-500 focus:tw-ring-primary-500 dark:tw-border-gray-600 dark:tw-bg-gray-700 dark:tw-text-white dark:tw-placeholder:tw-text-gray-400 dark:focus:tw-border-primary-500 dark:focus:tw-ring-primary-500"
+                      class="tw-block tw-w-full tw-rounded-lg tw-border tw-border-gray-300 tw-bg-gray-50 tw-p-2.5 tw-text-sm tw-text-gray-900 focus:tw-border-primary-500 focus:tw-ring-primary-500"
                       placeholder="08061982520"
                       required
                       v-model="address.phone2"
@@ -1317,14 +1317,14 @@ function checkout() {
                   <div>
                     <label
                       for="address1"
-                      class="tw-mb-2 tw-block tw-text-sm tw-font-medium tw-text-gray-900 dark:tw-text-white"
+                      class="tw-mb-2 tw-block tw-text-sm tw-font-medium tw-text-gray-900"
                     >
                       Home Address 1
                     </label>
                     <input
                       type="text"
                       id="address1"
-                      class="tw-block tw-w-full tw-rounded-lg tw-border tw-border-gray-300 tw-bg-gray-50 tw-p-2.5 tw-text-sm tw-text-gray-900 focus:tw-border-primary-500 focus:tw-ring-primary-500 dark:tw-border-gray-600 dark:tw-bg-gray-700 dark:tw-text-white dark:tw-placeholder:tw-text-gray-400 dark:focus:tw-border-primary-500 dark:focus:tw-ring-primary-500"
+                      class="tw-block tw-w-full tw-rounded-lg tw-border tw-border-gray-300 tw-bg-gray-50 tw-p-2.5 tw-text-sm tw-text-gray-900 focus:tw-border-primary-500 focus:tw-ring-primary-500 "
                       placeholder="Home Adress"
                       required
                       v-model="address.address1"
@@ -1334,14 +1334,14 @@ function checkout() {
                   <div>
                     <label
                       for="address2"
-                      class="tw-mb-2 tw-block tw-text-sm tw-font-medium tw-text-gray-900 dark:tw-text-white"
+                      class="tw-mb-2 tw-block tw-text-sm tw-font-medium tw-text-gray-900"
                     >
                       Home Address 2
                     </label>
                     <input
                       type="text"
                       id="address2"
-                      class="tw-block tw-w-full tw-rounded-lg tw-border tw-border-gray-300 tw-bg-gray-50 tw-p-2.5 tw-text-sm tw-text-gray-900 focus:tw-border-primary-500 focus:tw-ring-primary-500 dark:tw-border-gray-600 dark:tw-bg-gray-700 dark:tw-text-white dark:tw-placeholder:tw-text-gray-400 dark:focus:tw-border-primary-500 dark:focus:tw-ring-primary-500"
+                      class="tw-block tw-w-full tw-rounded-lg tw-border tw-border-gray-300 tw-bg-gray-50 tw-p-2.5 tw-text-sm tw-text-gray-900 focus:tw-border-primary-500 focus:tw-ring-primary-500"
                       placeholder="address"
                       v-model="address.address2"
                     />
@@ -1351,14 +1351,14 @@ function checkout() {
 
               <div class="tw-space-y-4">
                 <h3
-                  class="tw-text-xl tw-font-semibold tw-text-gray-900 dark:tw-text-white"
+                  class="tw-text-xl tw-font-semibold tw-text-gray-900"
                 >
                   Payment
                 </h3>
 
                 <div class="tw-grid tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-3">
                   <div
-                    class="tw-rounded-lg tw-border tw-border-gray-200 tw-bg-gray-50 tw-p-4 tw-ps-4 dark:tw-border-gray-700 dark:tw-bg-gray-800"
+                    class="tw-rounded-lg tw-border tw-border-gray-200 tw-bg-gray-50 tw-p-4 tw-ps-4"
                   >
                     <div class="tw-flex tw-items-start">
                       <div class="tw-flex tw-h-5 tw-items-center">
@@ -1368,7 +1368,7 @@ function checkout() {
                           type="radio"
                           name="payment-method"
                           value=""
-                          class="tw-h-4 tw-w-4 tw-border-gray-300 tw-bg-white tw-text-primary-600 focus:tw-ring-2 focus:tw-ring-primary-600 dark:tw-border-gray-600 dark:tw-bg-gray-700 dark:tw-ring-offset-gray-800 dark:focus:tw-ring-primary-600"
+                          class="tw-h-4 tw-w-4 tw-border-gray-300 tw-bg-white tw-text-primary-600 focus:tw-ring-2 focus:tw-ring-primary-600"
                           checked
                         />
                       </div>
@@ -1376,13 +1376,13 @@ function checkout() {
                       <div class="tw-ms-4 tw-text-sm">
                         <label
                           for="credit-card"
-                          class="tw-font-medium tw-leading-none tw-text-gray-900 dark:tw-text-white"
+                          class="tw-font-medium tw-leading-none tw-text-gray-900"
                         >
                           Credit Card
                         </label>
                         <p
                           id="credit-card-text"
-                          class="tw-mt-1 tw-text-xs tw-font-normal tw-text-gray-500 dark:tw-text-gray-400"
+                          class="tw-mt-1 tw-text-xs tw-font-normal tw-text-gray-500"
                         >
                           Pay with your credit card
                         </p>
@@ -1391,7 +1391,7 @@ function checkout() {
                   </div>
 
                   <div
-                    class="tw-rounded-lg tw-border tw-border-gray-200 tw-bg-gray-50 tw-p-4 tw-ps-4 dark:tw-border-gray-700 dark:tw-bg-gray-800"
+                    class="tw-rounded-lg tw-border tw-border-gray-200 tw-bg-gray-50 tw-p-4 tw-ps-4"
                   >
                     <div class="tw-flex tw-items-start">
                       <div class="tw-flex tw-h-5 tw-items-center">
@@ -1401,20 +1401,20 @@ function checkout() {
                           type="radio"
                           name="payment-method"
                           value=""
-                          class="tw-h-4 tw-w-4 tw-border-gray-300 tw-bg-white tw-text-primary-600 focus:tw-ring-2 focus:tw-ring-primary-600 dark:tw-border-gray-600 dark:tw-bg-gray-700 dark:tw-ring-offset-gray-800 dark:focus:tw-ring-primary-600"
+                          class="tw-h-4 tw-w-4 tw-border-gray-300 tw-bg-white tw-text-primary-600 focus:tw-ring-2 focus:tw-ring-primary-600"
                         />
                       </div>
 
                       <div class="tw-ms-4 tw-text-sm">
                         <label
                           for="pay-on-delivery"
-                          class="tw-font-medium tw-leading-none tw-text-gray-900 dark:tw-text-white"
+                          class="tw-font-medium tw-leading-none tw-text-gray-900"
                         >
                           Payment on delivery
                         </label>
                         <p
                           id="pay-on-delivery-text"
-                          class="tw-mt-1 tw-text-xs tw-font-normal tw-text-gray-500 dark:tw-text-gray-400"
+                          class="tw-mt-1 tw-text-xs tw-font-normal tw-text-gray-500"
                         >
                           +<span v-naira="1000"></span> payment processing fee
                         </p>
@@ -1434,12 +1434,12 @@ function checkout() {
                     class="tw-flex tw-items-center tw-justify-between tw-gap-4 tw-py-3"
                   >
                     <dt
-                      class="tw-text-base tw-font-normal tw-text-gray-500 dark:tw-text-gray-400"
+                      class="tw-text-base tw-font-normal tw-text-gray-500"
                     >
                       Subtotal
                     </dt>
                     <dd
-                      class="tw-text-base tw-font-medium tw-text-gray-900 dark:tw-text-white"
+                      class="tw-text-base tw-font-medium tw-text-gray-900"
                       v-naira="total_price"
                       >
                      
@@ -1450,12 +1450,12 @@ function checkout() {
                     class="tw-flex tw-items-center tw-justify-between tw-gap-4 tw-py-3"
                   >
                     <dt
-                      class="tw-text-base tw-font-normal tw-text-gray-500 dark:tw-text-gray-400"
+                      class="tw-text-base tw-font-normal tw-text-gray-500"
                     >
                       Delivery
                     </dt>
                     <dd
-                      class="tw-text-base tw-font-medium tw-text-gray-900 dark:tw-text-white"
+                      class="tw-text-base tw-font-medium tw-text-gray-900"
                       v-naira="delivery_price"
                     ></dd>
                   </dl>
@@ -1464,12 +1464,12 @@ function checkout() {
                     class="tw-flex tw-items-center tw-justify-between tw-gap-4 tw-py-3"
                   >
                     <dt
-                      class="tw-text-base tw-font-normal tw-text-gray-500 dark:tw-text-gray-400"
+                      class="tw-text-base tw-font-normal tw-text-gray-500"
                     >
                       Tax
                     </dt>
                     <dd
-                      class="tw-text-base tw-font-medium tw-text-gray-900 dark:tw-text-white"
+                      class="tw-text-base tw-font-medium tw-text-gray-900"
                       v-naira="tax"
                     ></dd>
                   </dl>
@@ -1478,12 +1478,12 @@ function checkout() {
                     class="tw-flex tw-items-center tw-justify-between tw-gap-4 tw-py-3"
                   >
                     <dt
-                      class="tw-text-base tw-font-bold tw-text-gray-900 dark:tw-text-white"
+                      class="tw-text-base tw-font-bold tw-text-gray-900"
                     >
                       Total
                     </dt>
                     <dd
-                      class="tw-text-base tw-font-bold tw-text-gray-900 dark:tw-text-white"
+                      class="tw-text-base tw-font-bold tw-text-gray-900"
                       v-naira="sumAmount"
                       >
                      

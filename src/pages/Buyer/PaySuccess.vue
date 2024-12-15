@@ -2,22 +2,23 @@
 import { inject } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useQuasar } from 'quasar';
+import { useCartStore } from 'src/stores/cart';
 
 const api = inject('api');
 const route = useRoute();
 const router = useRouter();
 const $q = useQuasar();
 
+
 const { tx_ref: salesId, status, transaction_id } = route.query;
 
-if (status === 'successful') {
+if (status === 'completed') {
   fetch(`${api}/store/sale/updatePayment`, {
     method: 'post',
     body: JSON.stringify({ salesId, status, transaction_id }),
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
-      Accept: 'application/json',
     },
   })
     .then((res) => res.json())
@@ -31,7 +32,7 @@ if (status === 'successful') {
           message: 'Your order has been updated. Redirecting...',
           position: 'top-right'
         });
-        return router.push('/');
+        return true;
       }
       $q.notify({
         color: 'red-3',
@@ -41,7 +42,7 @@ if (status === 'successful') {
         message: 'Unknown error occured. Redirecting...',
         position: 'top-right'
       });
-      return router.push('/')
+      return false
     })
     .catch((error) => {
       $q.notify({
@@ -52,7 +53,10 @@ if (status === 'successful') {
         message: 'Unknown error ' + error.message +' occured. Redirecting...',
         position: 'top-right'
       });
-      return router.push('/');
+      return false;
+    }).finally(() => {
+      useCartStore().empty()
+      return router.push('/shop')
     });
 }
 </script>
@@ -61,7 +65,7 @@ if (status === 'successful') {
     <div class="tw-h-full tw-w-full">
       <q-dialog
         :model-value="true"
-        v-if="status === 'successful'"
+        v-if="status === 'completed'"
         persistent
         flat
       >

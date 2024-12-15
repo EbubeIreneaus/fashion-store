@@ -6,7 +6,7 @@
       <span>Style Yourself Confidently</span>
       <h2>Premium Quality, Affordable Prices</h2>
       <p>Free Pickup and Delivery Available</p>
-      <router-link to="/" href="#" class="primary-btn">START SHOPING NOW</router-link>
+      <router-link to="/shop"  class="primary-btn">START SHOPING NOW</router-link>
     </div>
   </div>
 </template>

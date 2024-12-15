@@ -67,7 +67,7 @@ function login() {
 
 <template>
   <div>
-    <div class="tw-h-full tw-bg-gray-400">
+    <div class="tw-h-screen tw-bg-gray-400">
       <!-- Container -->
       <div class="tw-mx-auto">
         <div class="tw-flex tw-justify-center tw-px-6 tw-py-12">

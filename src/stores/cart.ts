@@ -76,6 +76,9 @@ export const useCartStore = defineStore('cart', () => {
   //     return false;
   //   }
   // }
+  function empty(){
+    return Cart.value = []
+  }
 
   const total_price = computed(() => {
     const price = Cart.value.reduce(
@@ -107,6 +110,7 @@ export const useCartStore = defineStore('cart', () => {
     add,
     total_price,
     remove,
+    empty
   };
 });
 // onMounted(() => {
